@@ -218,45 +218,53 @@ Managing 7000+ VM & 400+ host across enterprise infrastructure.
 <script>
 window.onload = () => {
 
-/* FIX ICON */
-setTimeout(() => {
-  lucide.createIcons()
-}, 100)
+/* ICON */
+setTimeout(() => { lucide.createIcons() }, 100)
 
 /* typing */
 let name="M Faqih Fitrokhudin"
 let role="Cloud Engineer"
 let i=0,j=0
-function t1(){if(i<name.length){nameEl.innerHTML+=name[i++];setTimeout(t1,50)}else t2()}
-function t2(){if(j<role.length){roleEl.innerHTML+=role[j++];setTimeout(t2,30)}}
 const nameEl=document.getElementById("name")
 const roleEl=document.getElementById("role")
+
+function t1(){if(i<name.length){nameEl.innerHTML+=name[i++];setTimeout(t1,50)}else t2()}
+function t2(){if(j<role.length){roleEl.innerHTML+=role[j++];setTimeout(t2,30)}}
 t1()
 
-/* chart */
+/* CHART INIT */
 const cpu=new Chart(document.getElementById("cpu"),{
 type:"line",
-data:{labels:Array(10),datasets:[{data:Array(10).fill(50),borderColor:"#00C2FF",tension:0.4}]},
+data:{labels:Array(10).fill(""),datasets:[{data:Array(10).fill(50),borderColor:"#00C2FF",tension:0.4}]},
 options:{responsive:true,maintainAspectRatio:false,plugins:{legend:false},scales:{x:{display:false},y:{display:false}}}
 })
-
-setInterval(()=>{
-cpu.data.datasets[0].data.push(Math.random()*100)
-cpu.data.datasets[0].data.shift()
-cpu.update()
-},1000)
 
 const mem=new Chart(document.getElementById("mem"),{
 type:"line",
-data:{labels:Array(10),datasets:[{data:Array(10).fill(30),borderColor:"#00ff88",tension:0.4}]},
+data:{labels:Array(10).fill(""),datasets:[{data:Array(10).fill(30),borderColor:"#00ff88",tension:0.4}]},
 options:{responsive:true,maintainAspectRatio:false,plugins:{legend:false},scales:{x:{display:false},y:{display:false}}}
 })
 
-setInterval(()=>{
-mem.data.datasets[0].data.push(Math.random()*100)
-mem.data.datasets[0].data.shift()
-mem.update()
-},1200)
+/* 🔥 FETCH DATA FROM WORKER */
+setInterval(async () => {
+  try {
+    const res = await fetch("https://worker-porto.jihadwajib68.workers.dev/")
+    const data = await res.json()
+
+    // CPU
+    cpu.data.datasets[0].data.push(data.cpu)
+    cpu.data.datasets[0].data.shift()
+    cpu.update()
+
+    // MEMORY
+    mem.data.datasets[0].data.push(data.memory)
+    mem.data.datasets[0].data.shift()
+    mem.update()
+
+  } catch (err) {
+    console.log("Worker error:", err)
+  }
+}, 2000)
 
 /* progress */
 window.addEventListener("scroll",()=>{
