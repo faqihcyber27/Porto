@@ -185,19 +185,19 @@ class="w-72 md:w-96 rounded-2xl border border-gray-700 shadow-xl">
 <div class="card p-6">
 <i data-lucide="cloud" class="text-cyan-400 mb-2"></i>
 <h3 class="font-semibold mb-2">Infrastructure</h3>
-<p class="text-sm text-gray-400">Enterprise VM, host, storage management</p>
+<p class="text-sm text-gray-400">High availability infrastructure for banking systems, ensuring reliability, security, and 24/7 uptime.</p>
 </div>
 
 <div class="card p-6">
 <i data-lucide="database" class="text-cyan-400 mb-2"></i>
 <h3 class="font-semibold mb-2">Virtualization</h3>
-<p class="text-sm text-gray-400">VMware → OLVM migration</p>
+<p class="text-sm text-gray-400">Large-scale VM migration & optimization across enterprise banking systems.</p>
 </div>
 
 <div class="card p-6">
 <i data-lucide="settings" class="text-cyan-400 mb-2"></i>
 <h3 class="font-semibold mb-2">Automation</h3>
-<p class="text-sm text-gray-400">RPA, scripting & failover automation</p>
+<p class="text-sm text-gray-400">Automation for switchover, monitoring, and operational efficiency in critical systems.</p>
 </div>
 
 </div>
@@ -209,14 +209,42 @@ class="w-72 md:w-96 rounded-2xl border border-gray-700 shadow-xl">
 
 <div class="grid md:grid-cols-3 gap-6">
 
-<div class="card p-6">
+<div class="card p-6 cursor-pointer" onclick="toggleWork(this)">
+
 <i data-lucide="arrow-right-left" class="text-cyan-400 mb-2"></i>
-<h3 class="text-cyan-400 mb-2">VM Migration</h3>
-<ul class="text-sm text-gray-400 list-disc ml-4">
+<h3 class="text-cyan-400 mb-2">VM Migration & Network Transformation</h3>
+
+<p class="text-sm text-gray-400">7000+ VM migrated • Zero downtime • NSX-V → ACI</p>
+
+<!-- DETAIL -->
+<div class="mt-4 text-sm text-gray-400 hidden">
+
+<p class="mb-2 text-gray-300">Problem:</p>
+<ul class="list-disc ml-4 mb-3">
+<li>VMware infra migration to OLVM</li>
+<li>Maintain high availability</li>
+<li>NSX-V end of support</li>
+</ul>
+
+<p class="mb-2 text-gray-300">Solution:</p>
+<ul class="list-disc ml-4 mb-3">
+<li>Phased migration without downtime</li>
+<li>Maintain HA & service continuity</li>
+<li>NSX-V to Cisco ACI transformation</li>
+</ul>
+
+<p class="mb-2 text-gray-300">Tools:</p>
+<p class="mb-3">VMware • OLVM • NSX-V • Cisco ACI • SQL Always On</p>
+
+<p class="mb-2 text-gray-300">Result:</p>
+<ul class="list-disc ml-4">
 <li>7000+ VM migrated</li>
 <li>Zero downtime</li>
-<li>Cluster optimization</li>
+<li>Network modernized to ACI</li>
 </ul>
+
+</div>
+
 </div>
 
 <div class="card p-6">
@@ -238,6 +266,25 @@ class="w-72 md:w-96 rounded-2xl border border-gray-700 shadow-xl">
 <li>Performance tracking</li>
 </ul>
 </div>
+
+</div>
+</section>
+
+<section id="stack" class="py-20">
+<h2 class="text-lg font-semibold mb-6">Tech Stack</h2>
+
+<div class="flex flex-wrap gap-3">
+
+<span class="card px-4 py-2 text-sm">VMware</span>
+<span class="card px-4 py-2 text-sm">OLVM</span>
+<span class="card px-4 py-2 text-sm">Linux</span>
+<span class="card px-4 py-2 text-sm">Windows</span>
+<span class="card px-4 py-2 text-sm">NSX-V</span>
+<span class="card px-4 py-2 text-sm">UiPath</span>
+<span class="card px-4 py-2 text-sm">Grafana</span>
+<span class="card px-4 py-2 text-sm">Aria Ops</span>
+<span class="card px-4 py-2 text-sm">ESX</span>
+<span class="card px-4 py-2 text-sm">KVM</span>
 
 </div>
 </section>
@@ -408,6 +455,11 @@ memChart.update()
 /* COLLAPSE */
 function toggleCard(id){
 document.getElementById(id).classList.toggle("collapsed")
+}
+
+function toggleWork(el){
+  const detail = el.querySelector("div.hidden")
+  detail.classList.toggle("hidden")
 }
 
 /* PROGRESS */
