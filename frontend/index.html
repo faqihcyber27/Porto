@@ -7,6 +7,7 @@
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
 
 <style>
 body {
@@ -16,7 +17,6 @@ body {
   scroll-behavior: smooth;
 }
 
-/* GRID */
 body::before {
   content:"";
   position:fixed;
@@ -27,14 +27,12 @@ body::before {
   background-size: 40px 40px;
 }
 
-/* NAV */
 .nav {
   backdrop-filter: blur(10px);
   background: rgba(11,15,23,0.7);
   border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
-/* CARD */
 .card {
   background: #111827;
   border: 1px solid rgba(255,255,255,0.05);
@@ -46,15 +44,9 @@ body::before {
   transform: translateY(-4px);
 }
 
-/* COLLAPSE */
-.collapsed .chart-box {
-  display:none;
-}
-
-/* CHART */
+.collapsed .chart-box { display:none; }
 .chart-box { height:240px }
 
-/* CURSOR */
 .cursor {
   display:inline-block;
   width:2px;
@@ -63,7 +55,6 @@ body::before {
 }
 @keyframes blink {50%{opacity:0}}
 
-/* PROGRESS */
 #progress {
   height:3px;
   background:#00C2FF;
@@ -74,7 +65,6 @@ body::before {
   z-index:9999;
 }
 
-/* BOOT */
 #boot-screen {
   position:fixed;
   inset:0;
@@ -124,11 +114,26 @@ Managing 7000+ VM & 400+ host across enterprise infrastructure.
 </p>
 
 <div class="grid grid-cols-3 gap-6 text-center mt-8">
-<div><p class="text-xl text-cyan-400 font-bold">7000+</p><p class="text-xs text-gray-500">VM</p></div>
-<div><p class="text-xl text-cyan-400 font-bold">400+</p><p class="text-xs text-gray-500">Host</p></div>
-<div><p class="text-xl text-cyan-400 font-bold">99.9%</p><p class="text-xs text-gray-500">Uptime</p></div>
+
+<div>
+<i data-lucide="server" class="mx-auto text-cyan-400 mb-1"></i>
+<p class="text-xl text-cyan-400 font-bold">7000+</p>
+<p class="text-xs text-gray-500">VM</p>
 </div>
 
+<div>
+<i data-lucide="cpu" class="mx-auto text-cyan-400 mb-1"></i>
+<p class="text-xl text-cyan-400 font-bold">400+</p>
+<p class="text-xs text-gray-500">Host</p>
+</div>
+
+<div>
+<i data-lucide="activity" class="mx-auto text-cyan-400 mb-1"></i>
+<p class="text-xl text-cyan-400 font-bold">99.9%</p>
+<p class="text-xs text-gray-500">Uptime</p>
+</div>
+
+</div>
 </div>
 
 <div class="flex justify-center">
@@ -144,20 +149,25 @@ class="w-72 md:w-96 rounded-2xl border border-gray-700 shadow-xl">
 <h2 class="text-lg font-semibold mb-6">Services</h2>
 
 <div class="grid md:grid-cols-3 gap-6">
+
 <div class="card p-6">
+<i data-lucide="cloud" class="text-cyan-400 mb-2"></i>
 <h3 class="font-semibold mb-2">Infrastructure</h3>
 <p class="text-sm text-gray-400">Enterprise VM, host, storage management</p>
 </div>
 
 <div class="card p-6">
+<i data-lucide="database" class="text-cyan-400 mb-2"></i>
 <h3 class="font-semibold mb-2">Virtualization</h3>
 <p class="text-sm text-gray-400">VMware → OLVM migration</p>
 </div>
 
 <div class="card p-6">
+<i data-lucide="settings" class="text-cyan-400 mb-2"></i>
 <h3 class="font-semibold mb-2">Automation</h3>
 <p class="text-sm text-gray-400">RPA, scripting & failover automation</p>
 </div>
+
 </div>
 </section>
 
@@ -168,6 +178,7 @@ class="w-72 md:w-96 rounded-2xl border border-gray-700 shadow-xl">
 <div class="grid md:grid-cols-3 gap-6">
 
 <div class="card p-6">
+<i data-lucide="arrow-right-left" class="text-cyan-400 mb-2"></i>
 <h3 class="text-cyan-400 mb-2">VM Migration</h3>
 <ul class="text-sm text-gray-400 list-disc ml-4">
 <li>7000+ VM migrated</li>
@@ -177,6 +188,7 @@ class="w-72 md:w-96 rounded-2xl border border-gray-700 shadow-xl">
 </div>
 
 <div class="card p-6">
+<i data-lucide="zap" class="text-cyan-400 mb-2"></i>
 <h3 class="text-cyan-400 mb-2">Automation</h3>
 <ul class="text-sm text-gray-400 list-disc ml-4">
 <li>Failover automation</li>
@@ -186,6 +198,7 @@ class="w-72 md:w-96 rounded-2xl border border-gray-700 shadow-xl">
 </div>
 
 <div class="card p-6">
+<i data-lucide="bar-chart-3" class="text-cyan-400 mb-2"></i>
 <h3 class="text-cyan-400 mb-2">Monitoring</h3>
 <ul class="text-sm text-gray-400 list-disc ml-4">
 <li>Realtime monitoring</li>
@@ -230,16 +243,29 @@ class="w-72 md:w-96 rounded-2xl border border-gray-700 shadow-xl">
 
 <div class="flex justify-center gap-6">
 
-<a href="https://wa.me/628567776457" class="card p-4">
-<svg width="24" height="24" fill="#25D366"><path d="M20 3.5A10 10 0 003.5 20L2 22l2.5-.7A10 10 0 1020 3.5z"/></svg>
+<!-- WhatsApp -->
+<a href="https://wa.me/628567776457" target="_blank"
+class="card p-4 flex items-center justify-center hover:scale-110 transition">
+<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="#25D366">
+<path d="M20.52 3.48A11.94 11.94 0 0012 0C5.37 0 .03 5.34 0 11.97c0 2.11.55 4.18 1.6 6.01L0 24l6.18-1.61a11.93 11.93 0 005.82 1.48h.01c6.63 0 12-5.34 12-11.97a11.9 11.9 0 00-3.49-8.42zM12 21.5a9.5 9.5 0 01-4.84-1.32l-.35-.2-3.67.96.98-3.58-.23-.37A9.48 9.48 0 012.5 12C2.5 6.76 6.76 2.5 12 2.5S21.5 6.76 21.5 12 17.24 21.5 12 21.5z"/>
+</svg>
 </a>
 
-<a href="mailto:jihadwajib68@gmail.com" class="card p-4">
-<svg width="24" height="24" fill="white"><path d="M2 6l10 7 10-7v12H2z"/></svg>
+<!-- Email -->
+<a href="mailto:jihadwajib68@gmail.com"
+class="card p-4 flex items-center justify-center hover:scale-110 transition">
+<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="none" stroke="#E5E7EB" stroke-width="2">
+<rect x="2" y="4" width="20" height="16" rx="2"/>
+<path d="M2 6l10 7 10-7"/>
+</svg>
 </a>
 
-<a href="https://linkedin.com/in/m-faqih-fitrokhudin-s" class="card p-4">
-<svg width="24" height="24" fill="#0A66C2"><path d="M4 4h16v16H4z"/></svg>
+<!-- LinkedIn -->
+<a href="https://linkedin.com/in/m-faqih-fitrokhudin-s" target="_blank"
+class="card p-4 flex items-center justify-center hover:scale-110 transition">
+<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="#0A66C2">
+<path d="M20.45 20.45h-3.55v-5.4c0-1.29-.03-2.94-1.79-2.94-1.79 0-2.07 1.4-2.07 2.85v5.49H9.5V9h3.41v1.56h.05c.47-.89 1.61-1.83 3.31-1.83 3.54 0 4.2 2.33 4.2 5.35v6.37zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/>
+</svg>
 </a>
 
 </div>
@@ -247,8 +273,11 @@ class="w-72 md:w-96 rounded-2xl border border-gray-700 shadow-xl">
 
 <script>
 
+/* INIT ICON */
+lucide.createIcons()
+
 /* BOOT */
-let lines=["Init system...","Loading infra...","Checking VM...","Ready 🚀"]
+let lines=["Init system...","Loading infra...","Checking VM...","Checking Host...","System Ready 🚀"]
 let li=0,ci=0,el=document.getElementById("boot-text")
 function boot(){
 if(li<lines.length){
@@ -263,7 +292,7 @@ setTimeout(()=>{document.getElementById("boot-screen").style.display="none"},800
 }}
 boot()
 
-/* TYPING LOOP */
+/* TYPING */
 let text="M Faqih Fitrokhudin S"
 let role="Cloud Engineer"
 let i=0,dir=1
@@ -281,26 +310,24 @@ if(i===0){dir=1}
 }
 },80)
 
-/* CHART */
+/* CHART FIX */
 function createChart(id,color){
 return new Chart(document.getElementById(id),{
 type:"line",
-data:{labels:Array(30),datasets:[{
-data:Array(30).fill(50),
+data:{labels:Array(40).fill(""),datasets:[{
+data:Array(40).fill(50),
 borderColor:color,
 backgroundColor:color+"22",
 fill:true,
-tension:0.45,
+tension:0.4,
 pointRadius:0
 }]},
 options:{
+animation:false,
 responsive:true,
 maintainAspectRatio:false,
 plugins:{legend:false},
-scales:{
-x:{display:false},
-y:{min:0,max:100,grid:{color:"rgba(255,255,255,0.04)"}}
-}
+scales:{x:{display:false},y:{min:0,max:100}}
 }
 })
 }
@@ -308,24 +335,31 @@ y:{min:0,max:100,grid:{color:"rgba(255,255,255,0.04)"}}
 const cpuChart=createChart("cpu","#00C2FF")
 const memChart=createChart("mem","#22C55E")
 
+let cpu=50, mem=40
+
 setInterval(()=>{
-let cpu=Math.min(100, Math.max(10, cpuChart.data.datasets[0].data.slice(-1)[0]+(Math.random()*20-10)))
-let mem=Math.min(100, Math.max(10, memChart.data.datasets[0].data.slice(-1)[0]+(Math.random()*20-10)))
+cpu += (Math.random()*6-3)
+mem += (Math.random()*6-3)
 
-cpu=Math.floor(cpu); mem=Math.floor(mem)
+cpu=Math.max(10,Math.min(95,cpu))
+mem=Math.max(20,Math.min(90,mem))
 
-cpuVal.innerText=cpu+"%"
-memVal.innerText=mem+"%"
+cpu=Math.floor(cpu)
+mem=Math.floor(mem)
+
+document.getElementById("cpuVal").innerText=cpu+"%"
+document.getElementById("memVal").innerText=mem+"%"
 
 cpuChart.data.datasets[0].data.push(cpu)
 cpuChart.data.datasets[0].data.shift()
-cpuChart.update()
 
 memChart.data.datasets[0].data.push(mem)
 memChart.data.datasets[0].data.shift()
+
+cpuChart.update()
 memChart.update()
 
-},1200)
+},1000)
 
 /* COLLAPSE */
 function toggleCard(id){
