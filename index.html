@@ -7,10 +7,11 @@
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 body {
-  background: radial-gradient(circle at 20% 20%, #0a0f1f, #05070d);
+  background: #05070D;
   color: white;
   font-family: system-ui;
   scroll-behavior: smooth;
@@ -22,14 +23,14 @@ body {
   background: rgba(5,7,13,0.7);
 }
 
-/* SECTION OFFSET */
+/* SECTION */
 section {
   scroll-margin-top: 100px;
 }
 
 /* CARD */
 .card {
-  background: rgba(11,18,32,0.6);
+  background: rgba(11,18,32,0.7);
   border: 1px solid rgba(0,194,255,0.1);
   transition: .3s;
 }
@@ -49,7 +50,7 @@ section {
   transform: translateY(0);
 }
 
-/* TYPING CURSOR */
+/* CURSOR */
 .cursor {
   display: inline-block;
   background: #00C2FF;
@@ -61,30 +62,42 @@ section {
   50% { opacity: 0 }
 }
 
-/* BOOT SCREEN */
+/* PROGRESS */
+#progress {
+  height: 3px;
+  background: #00C2FF;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  z-index: 9999;
+}
+
+/* BOOT */
 #boot-screen {
-  transition: opacity 1s ease;
+  transition: opacity 1s;
 }
 </style>
 </head>
 
 <body class="px-6 md:px-20">
 
+<div id="progress"></div>
+
 <!-- BOOT -->
-<div id="boot-screen" class="fixed inset-0 bg-black z-[9999] flex items-center justify-center px-6">
-  <div class="w-full max-w-xl text-green-400 font-mono text-sm">
-    <pre id="boot-text"></pre>
-  </div>
+<div id="boot-screen" class="fixed inset-0 bg-black z-[9999] flex items-center justify-center">
+  <pre id="boot-text" class="text-green-400 font-mono text-sm"></pre>
 </div>
 
-<!-- NAVBAR -->
+<!-- NAV -->
 <nav class="nav fixed top-0 left-0 w-full flex justify-between items-center px-6 md:px-20 py-4 z-50">
   <h1 class="text-cyan-400 font-bold">FAQIH</h1>
   <div class="hidden md:flex gap-6 text-sm">
-    <a href="#home" class="nav-link">Home</a>
-    <a href="#services" class="nav-link">Services</a>
-    <a href="#work" class="nav-link">Work</a>
-    <a href="#contact" class="nav-link">Contact</a>
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#work">Work</a>
+    <a href="#monitor">Monitor</a>
+    <a href="#contact">Contact</a>
   </div>
 </nav>
 
@@ -92,45 +105,42 @@ section {
 <section id="home" class="min-h-screen flex items-center pt-24">
 <div class="grid md:grid-cols-2 gap-10 w-full">
 
-<div class="fade">
+<div>
 <h1 class="text-4xl md:text-6xl font-bold mb-6">
-<span id="typing-name"></span><span class="cursor"></span>
+<span id="name"></span><span class="cursor"></span>
 </h1>
 
-<p class="text-cyan-400 mb-4">
-<span id="typing-role"></span>
-</p>
+<p class="text-cyan-400 mb-4" id="role"></p>
 
 <p class="text-gray-400 mb-6">
 Managing 7000+ VM & 400+ host across enterprise infrastructure.
 </p>
 
-<div class="flex gap-4 mb-10">
-<a href="#work" class="bg-cyan-500 px-6 py-3 rounded-xl">View Work</a>
-<a href="#contact" class="border border-cyan-400 px-6 py-3 rounded-xl">Contact</a>
-</div>
+<div class="grid grid-cols-3 gap-6 text-center mt-8">
 
-<div class="grid grid-cols-3 gap-6 text-center">
 <div>
 <i data-lucide="server" class="mx-auto text-cyan-400"></i>
-<p class="text-2xl font-bold">7000+</p>
-<p class="text-gray-400 text-sm">VM</p>
+<p class="text-xl font-bold">7000+</p>
+<p class="text-gray-400 text-xs">VM</p>
 </div>
+
 <div>
 <i data-lucide="cpu" class="mx-auto text-cyan-400"></i>
-<p class="text-2xl font-bold">400+</p>
-<p class="text-gray-400 text-sm">Host</p>
+<p class="text-xl font-bold">400+</p>
+<p class="text-gray-400 text-xs">Host</p>
 </div>
+
 <div>
 <i data-lucide="activity" class="mx-auto text-cyan-400"></i>
-<p class="text-2xl font-bold">99.9%</p>
-<p class="text-gray-400 text-sm">Uptime</p>
+<p class="text-xl font-bold">99.9%</p>
+<p class="text-gray-400 text-xs">Uptime</p>
 </div>
+
 </div>
 </div>
 
-<div class="fade flex justify-center">
-<img src="IMG-20250527-WA0013.jpg" class="w-72 md:w-96 rounded-2xl">
+<div class="flex justify-center">
+<img src="IMG-20250527-WA0013.jpg" class="w-72 md:w-96 rounded-2xl border border-cyan-500/20">
 </div>
 
 </div>
@@ -138,25 +148,25 @@ Managing 7000+ VM & 400+ host across enterprise infrastructure.
 
 <!-- SERVICES -->
 <section id="services" class="py-20">
-<h2 class="text-3xl font-bold mb-10 fade">What I Do</h2>
+<h2 class="text-2xl font-bold mb-10">Services</h2>
 
 <div class="grid md:grid-cols-3 gap-6">
 
-<div class="card p-6 rounded-xl fade">
-<i data-lucide="cloud" class="text-cyan-400 mb-3"></i>
-<h3>Cloud Infrastructure</h3>
-<p class="text-gray-400 text-sm">Manage large-scale infra</p>
+<div class="card p-6 rounded-xl">
+<i data-lucide="cloud"></i>
+<h3 class="mt-3">Infrastructure</h3>
+<p class="text-gray-400 text-sm">Manage enterprise infra</p>
 </div>
 
-<div class="card p-6 rounded-xl fade">
-<i data-lucide="database" class="text-cyan-400 mb-3"></i>
-<h3>Virtualization</h3>
-<p class="text-gray-400 text-sm">VMware → OLVM migration</p>
+<div class="card p-6 rounded-xl">
+<i data-lucide="database"></i>
+<h3 class="mt-3">Virtualization</h3>
+<p class="text-gray-400 text-sm">VMware → OLVM</p>
 </div>
 
-<div class="card p-6 rounded-xl fade">
-<i data-lucide="settings" class="text-cyan-400 mb-3"></i>
-<h3>Automation</h3>
+<div class="card p-6 rounded-xl">
+<i data-lucide="settings"></i>
+<h3 class="mt-3">Automation</h3>
 <p class="text-gray-400 text-sm">RPA & scripting</p>
 </div>
 
@@ -165,35 +175,49 @@ Managing 7000+ VM & 400+ host across enterprise infrastructure.
 
 <!-- WORK -->
 <section id="work" class="py-20">
-<h2 class="text-3xl font-bold mb-10 fade">My Work</h2>
+<h2 class="text-2xl font-bold mb-10">Work</h2>
 
 <div class="grid md:grid-cols-3 gap-6">
 
-<div class="card p-6 rounded-xl fade">
-<h3 class="text-cyan-400 mb-2">VM Migration</h3>
-<ul class="text-gray-400 text-sm list-disc ml-4">
-<li>Migrate 7000+ VM VMware → OLVM</li>
-<li>Zero downtime planning</li>
-<li>Cluster optimization</li>
+<div class="card p-6 rounded-xl">
+<h3 class="text-cyan-400">Migration</h3>
+<ul class="text-sm text-gray-400 list-disc ml-4">
+<li>7000+ VM migrated</li>
+<li>Zero downtime</li>
 </ul>
 </div>
 
-<div class="card p-6 rounded-xl fade">
-<h3 class="text-cyan-400 mb-2">Automation</h3>
-<ul class="text-gray-400 text-sm list-disc ml-4">
+<div class="card p-6 rounded-xl">
+<h3 class="text-cyan-400">Automation</h3>
+<ul class="text-sm text-gray-400 list-disc ml-4">
 <li>Failover automation</li>
-<li>Reduce manual work</li>
-<li>Improve recovery</li>
+<li>Reduce manual</li>
 </ul>
 </div>
 
-<div class="card p-6 rounded-xl fade">
-<h3 class="text-cyan-400 mb-2">Monitoring</h3>
-<ul class="text-gray-400 text-sm list-disc ml-4">
-<li>VM & host monitoring</li>
+<div class="card p-6 rounded-xl">
+<h3 class="text-cyan-400">Monitoring</h3>
+<ul class="text-sm text-gray-400 list-disc ml-4">
+<li>VM monitoring</li>
 <li>Alerting system</li>
-<li>Performance tracking</li>
 </ul>
+</div>
+
+</div>
+</section>
+
+<!-- MONITOR -->
+<section id="monitor" class="py-20">
+<h2 class="text-2xl font-bold mb-10">Live Monitoring</h2>
+
+<div class="grid md:grid-cols-2 gap-6">
+
+<div class="card p-6">
+<canvas id="cpu"></canvas>
+</div>
+
+<div class="card p-6">
+<canvas id="mem"></canvas>
 </div>
 
 </div>
@@ -201,26 +225,20 @@ Managing 7000+ VM & 400+ host across enterprise infrastructure.
 
 <!-- CONTACT -->
 <section id="contact" class="py-20 text-center">
-<h2 class="text-3xl font-bold mb-6 fade">Contact Me</h2>
+<h2 class="text-2xl font-bold mb-6">Contact</h2>
 
-<div class="flex justify-center gap-8 flex-wrap fade">
+<div class="flex justify-center gap-6">
 
-<!-- WHATSAPP -->
-<a href="https://wa.me/+628567776457" target="_blank" class="card p-4 rounded-xl">
-<svg width="24" height="24" fill="#25D366"><path d="M20.5 3.5A10 10 0 003.3 17.8L2 22l4.4-1.3A10 10 0 1020.5 3.5zm-8.5 17a8 8 0 01-4.2-1.2l-.3-.2-2.6.8.8-2.5-.2-.3A8 8 0 1112 20.5zm4.3-5.7c-.2-.1-1.2-.6-1.4-.6s-.3-.1-.5.1-.6.6-.7.7-.3.1-.5 0a6.5 6.5 0 01-1.9-1.2 7.2 7.2 0 01-1.3-1.6c-.1-.2 0-.3.1-.5l.4-.5c.1-.1.1-.3 0-.5s-.5-1.3-.7-1.7c-.2-.4-.3-.3-.5-.3h-.4c-.1 0-.4.1-.6.3s-.8.8-.8 1.9.8 2.1.9 2.3a9 9 0 003.5 3.4c.5.2.8.3 1.1.4.5.1 1 .1 1.3.1.4 0 1.2-.5 1.4-1 .2-.5.2-.9.2-1s-.2-.2-.4-.3z"/></svg>
-<p class="text-sm mt-2">WhatsApp</p>
+<a href="https://wa.me/628567776457" class="card p-4">
+<i data-lucide="phone"></i>
 </a>
 
-<!-- EMAIL -->
-<a href="mailto:jihadwajib68@gmail.com" class="card p-4 rounded-xl">
+<a href="mailto:jihadwajib68@gmail.com" class="card p-4">
 <i data-lucide="mail"></i>
-<p class="text-sm mt-2">Email</p>
 </a>
 
-<!-- LINKEDIN -->
-<a href="https://linkedin.com/in/m-faqih-fitrokhudin-s" target="_blank" class="card p-4 rounded-xl">
-<svg width="24" height="24" fill="#0A66C2"><path d="M20 2H4a2 2 0 00-2 2v16a2 2 0 002 2h16a2 2 0 002-2V4a2 2 0 00-2-2zM8 18H5V9h3v9zM6.5 7.7A1.7 1.7 0 116.5 4a1.7 1.7 0 010 3.4zM19 18h-3v-4.7c0-1.1 0-2.5-1.6-2.5S13 12 13 13.3V18h-3V9h2.8v1.2h.1a3 3 0 012.7-1.5c2.9 0 3.4 1.9 3.4 4.4V18z"/></svg>
-<p class="text-sm mt-2">LinkedIn</p>
+<a href="https://linkedin.com/in/m-faqih-fitrokhudin-s" class="card p-4">
+<i data-lucide="linkedin"></i>
 </a>
 
 </div>
@@ -230,62 +248,64 @@ Managing 7000+ VM & 400+ host across enterprise infrastructure.
 lucide.createIcons()
 
 /* typing */
-const nameText = "M Faqih Fitrokhudin"
-const roleText = "Cloud Engineer | VMware • OLVM • Linux • Windows"
-
+let name="M Faqih Fitrokhudin"
+let role="Cloud Engineer"
 let i=0,j=0
-function typeName(){
-  if(i<nameText.length){
-    document.getElementById("typing-name").innerHTML+=nameText[i++]
-    setTimeout(typeName,50)
-  } else typeRole()
-}
-function typeRole(){
-  if(j<roleText.length){
-    document.getElementById("typing-role").innerHTML+=roleText[j++]
-    setTimeout(typeRole,30)
-  }
-}
-typeName()
 
-/* fade */
-const obs=new IntersectionObserver(e=>e.forEach(x=>x.isIntersecting&&x.target.classList.add('show')))
-document.querySelectorAll('.fade').forEach(el=>obs.observe(el))
+function t1(){
+if(i<name.length){
+document.getElementById("name").innerHTML+=name[i++]
+setTimeout(t1,50)
+}else t2()
+}
+function t2(){
+if(j<role.length){
+document.getElementById("role").innerHTML+=role[j++]
+setTimeout(t2,30)
+}
+}
+t1()
 
-/* active nav */
-const sections=document.querySelectorAll("section")
-const links=document.querySelectorAll(".nav-link")
+/* chart */
+const cpu=new Chart(document.getElementById("cpu"),{
+type:"line",
+data:{labels:Array(10),datasets:[{data:Array(10).fill(50),borderColor:"#00C2FF"}]},
+options:{plugins:{legend:false},scales:{x:{display:false},y:{display:false}}}
+})
+setInterval(()=>{
+cpu.data.datasets[0].data.push(Math.random()*100)
+cpu.data.datasets[0].data.shift()
+cpu.update()
+},1000)
+
+const mem=new Chart(document.getElementById("mem"),{
+type:"line",
+data:{labels:Array(10),datasets:[{data:Array(10).fill(30),borderColor:"#00ff88"}]},
+options:{plugins:{legend:false},scales:{x:{display:false},y:{display:false}}}
+})
+setInterval(()=>{
+mem.data.datasets[0].data.push(Math.random()*100)
+mem.data.datasets[0].data.shift()
+mem.update()
+},1200)
+
+/* scroll progress */
 window.addEventListener("scroll",()=>{
-let current=""
-sections.forEach(s=>{
-if(scrollY>=s.offsetTop-120) current=s.id
-})
-links.forEach(l=>{
-l.classList.remove("active")
-if(l.getAttribute("href")==="#"+current) l.classList.add("active")
-})
+let h=document.body.scrollHeight-window.innerHeight
+document.getElementById("progress").style.width=(scrollY/h*100)+"%"
 })
 
 /* boot */
-const lines=[
-"Initializing system...",
-"Loading services...",
-"Connecting infrastructure...",
-"Checking 7000+ VM...",
-"Checking 400+ host...",
-"System ready 🚀"
-]
+let lines=["Init system...","Checking VM...","Checking host...","Ready 🚀"]
 let li=0,ci=0
-const el=document.getElementById("boot-text")
+let el=document.getElementById("boot-text")
 function boot(){
 if(li<lines.length){
 if(ci<lines[li].length){
 el.innerHTML+=lines[li][ci++]
 setTimeout(boot,20)
 }else{
-el.innerHTML+="\n"
-li++;ci=0
-setTimeout(boot,200)
+el.innerHTML+="\n";li++;ci=0;setTimeout(boot,200)
 }
 }else{
 setTimeout(()=>{
