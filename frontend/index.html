@@ -17,18 +17,15 @@ body {
   scroll-behavior: smooth;
 }
 
-/* NAV */
 .nav {
   backdrop-filter: blur(10px);
   background: rgba(5,7,13,0.8);
 }
 
-/* SECTION */
 section {
   scroll-margin-top: 100px;
 }
 
-/* CARD */
 .card {
   background: rgba(11,18,32,0.85);
   border: 1px solid rgba(0,194,255,0.15);
@@ -39,7 +36,6 @@ section {
   box-shadow: 0 0 30px rgba(0,194,255,0.25);
 }
 
-/* FIX CHART */
 .chart-box {
   height: 220px;
 }
@@ -48,13 +44,11 @@ canvas {
   height: 100% !important;
 }
 
-/* FIX ICON */
 i[data-lucide] {
   width: 24px;
   height: 24px;
 }
 
-/* CURSOR */
 .cursor {
   display: inline-block;
   background: #00C2FF;
@@ -64,7 +58,6 @@ i[data-lucide] {
 }
 @keyframes blink {50%{opacity:0}}
 
-/* PROGRESS */
 #progress {
   height: 3px;
   background: #00C2FF;
@@ -75,7 +68,6 @@ i[data-lucide] {
   z-index: 9999;
 }
 
-/* BOOT */
 #boot-screen {
   transition: opacity 1s;
 }
@@ -151,20 +143,9 @@ Managing 7000+ VM & 400+ host across enterprise infrastructure.
 <h2 class="text-2xl font-bold mb-10">Services</h2>
 
 <div class="grid md:grid-cols-3 gap-6">
-<div class="card p-6 rounded-xl">
-<i data-lucide="cloud"></i>
-<h3 class="mt-3">Infrastructure</h3>
-</div>
-
-<div class="card p-6 rounded-xl">
-<i data-lucide="database"></i>
-<h3 class="mt-3">Virtualization</h3>
-</div>
-
-<div class="card p-6 rounded-xl">
-<i data-lucide="settings"></i>
-<h3 class="mt-3">Automation</h3>
-</div>
+<div class="card p-6 rounded-xl"><i data-lucide="cloud"></i><h3 class="mt-3">Infrastructure</h3></div>
+<div class="card p-6 rounded-xl"><i data-lucide="database"></i><h3 class="mt-3">Virtualization</h3></div>
+<div class="card p-6 rounded-xl"><i data-lucide="settings"></i><h3 class="mt-3">Automation</h3></div>
 </div>
 </section>
 
@@ -185,12 +166,24 @@ Managing 7000+ VM & 400+ host across enterprise infrastructure.
 
 <div class="grid md:grid-cols-2 gap-6">
 
-<div class="card p-6 chart-box">
-<canvas id="cpu"></canvas>
+<!-- CPU -->
+<div class="card p-6">
+<div class="flex justify-between mb-2">
+<span>CPU Usage</span>
+<span id="cpu-status" class="text-green-400 text-xs">Healthy</span>
+</div>
+<h3 id="cpu-value" class="text-3xl mb-2">0%</h3>
+<div class="chart-box"><canvas id="cpu"></canvas></div>
 </div>
 
-<div class="card p-6 chart-box">
-<canvas id="mem"></canvas>
+<!-- MEMORY -->
+<div class="card p-6">
+<div class="flex justify-between mb-2">
+<span>Memory Usage</span>
+<span id="mem-status" class="text-green-400 text-xs">Healthy</span>
+</div>
+<h3 id="mem-value" class="text-3xl mb-2">0%</h3>
+<div class="chart-box"><canvas id="mem"></canvas></div>
 </div>
 
 </div>
@@ -201,70 +194,70 @@ Managing 7000+ VM & 400+ host across enterprise infrastructure.
 <h2 class="text-2xl font-bold mb-6">Contact</h2>
 
 <div class="flex justify-center gap-6">
-<a href="https://wa.me/628567776457" class="card p-4">
-<i data-lucide="phone"></i>
-</a>
-
-<a href="mailto:jihadwajib68@gmail.com" class="card p-4">
-<i data-lucide="mail"></i>
-</a>
-
-<a href="https://linkedin.com/in/m-faqih-fitrokhudin-s" class="card p-4">
-<i data-lucide="linkedin"></i>
-</a>
+<a href="https://wa.me/628567776457" class="card p-4"><i data-lucide="phone"></i></a>
+<a href="mailto:jihadwajib68@gmail.com" class="card p-4"><i data-lucide="mail"></i></a>
+<a href="https://linkedin.com/in/m-faqih-fitrokhudin-s" class="card p-4"><i data-lucide="linkedin"></i></a>
 </div>
 </section>
 
 <script>
 window.onload = () => {
 
-/* ICON */
-setTimeout(() => { lucide.createIcons() }, 100)
+setTimeout(()=>lucide.createIcons(),100)
 
 /* typing */
-let name="M Faqih Fitrokhudin"
-let role="Cloud Engineer"
+let name="M Faqih Fitrokhudin", role="Cloud Engineer"
 let i=0,j=0
 const nameEl=document.getElementById("name")
 const roleEl=document.getElementById("role")
-
 function t1(){if(i<name.length){nameEl.innerHTML+=name[i++];setTimeout(t1,50)}else t2()}
 function t2(){if(j<role.length){roleEl.innerHTML+=role[j++];setTimeout(t2,30)}}
 t1()
 
-/* CHART INIT */
+/* chart */
 const cpu=new Chart(document.getElementById("cpu"),{
 type:"line",
-data:{labels:Array(10).fill(""),datasets:[{data:Array(10).fill(50),borderColor:"#00C2FF",tension:0.4}]},
+data:{labels:Array(10),datasets:[{data:Array(10).fill(50),borderColor:"#00C2FF",tension:0.4}]},
 options:{responsive:true,maintainAspectRatio:false,plugins:{legend:false},scales:{x:{display:false},y:{display:false}}}
 })
 
 const mem=new Chart(document.getElementById("mem"),{
 type:"line",
-data:{labels:Array(10).fill(""),datasets:[{data:Array(10).fill(30),borderColor:"#00ff88",tension:0.4}]},
+data:{labels:Array(10),datasets:[{data:Array(10).fill(30),borderColor:"#00ff88",tension:0.4}]},
 options:{responsive:true,maintainAspectRatio:false,plugins:{legend:false},scales:{x:{display:false},y:{display:false}}}
 })
 
-/* 🔥 FETCH DATA FROM WORKER */
-setInterval(async () => {
-  try {
-    const res = await fetch("https://worker-porto.jihadwajib68.workers.dev/")
-    const data = await res.json()
+/* 🔥 WORKER CONNECT */
+setInterval(async ()=>{
+try{
+const res=await fetch("https://worker-porto.jihadwajib68.workers.dev/")
+const d=await res.json()
 
-    // CPU
-    cpu.data.datasets[0].data.push(data.cpu)
-    cpu.data.datasets[0].data.shift()
-    cpu.update()
+// CPU
+cpu.data.datasets[0].data.push(d.cpu)
+cpu.data.datasets[0].data.shift()
+cpu.update()
+document.getElementById("cpu-value").innerText=d.cpu+"%"
 
-    // MEMORY
-    mem.data.datasets[0].data.push(data.memory)
-    mem.data.datasets[0].data.shift()
-    mem.update()
+// STATUS CPU
+let cs=document.getElementById("cpu-status")
+if(d.cpu>80){cs.innerText="Critical";cs.className="text-red-400 text-xs"}
+else if(d.cpu>60){cs.innerText="Warning";cs.className="text-yellow-400 text-xs"}
+else{cs.innerText="Healthy";cs.className="text-green-400 text-xs"}
 
-  } catch (err) {
-    console.log("Worker error:", err)
-  }
-}, 2000)
+// MEM
+mem.data.datasets[0].data.push(d.memory)
+mem.data.datasets[0].data.shift()
+mem.update()
+document.getElementById("mem-value").innerText=d.memory+"%"
+
+let ms=document.getElementById("mem-status")
+if(d.memory>80){ms.innerText="Critical";ms.className="text-red-400 text-xs"}
+else if(d.memory>60){ms.innerText="Warning";ms.className="text-yellow-400 text-xs"}
+else{ms.innerText="Healthy";ms.className="text-green-400 text-xs"}
+
+}catch(e){console.log(e)}
+},2000)
 
 /* progress */
 window.addEventListener("scroll",()=>{
