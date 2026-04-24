@@ -3,222 +3,217 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fanda | Cloud Engineer</title>
+<title>Faqih | Cloud Engineer</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
 <style>
-:root {
-  --primary: #00C2FF;
-}
-
 body {
-  background: radial-gradient(circle at 20% 20%, #0a0f1f, #05070d);
+  background: #05070D;
   color: white;
-  overflow-x: hidden;
   font-family: system-ui;
 }
 
-/* ===== BACKGROUND ===== */
-.bg-grid {
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
-  z-index: -2;
-}
-
+/* Glow background */
 .bg-glow {
   position: fixed;
-  width: 600px;
-  height: 600px;
+  width: 500px;
+  height: 500px;
   background: radial-gradient(circle, rgba(0,194,255,0.15), transparent);
   filter: blur(120px);
-  animation: float 12s ease-in-out infinite;
   z-index: -1;
 }
 
-@keyframes float {
-  0%,100% { transform: translate(0,0) }
-  50% { transform: translate(80px, -60px) }
-}
-
-/* ===== CARD ===== */
+/* Card */
 .card {
-  background: rgba(11,18,32,0.6);
-  backdrop-filter: blur(14px);
+  background: rgba(11,18,32,0.7);
+  backdrop-filter: blur(12px);
   border: 1px solid rgba(0,194,255,0.15);
   transition: all .3s ease;
-  transform-style: preserve-3d;
 }
 
 .card:hover {
-  transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 0 40px rgba(0,194,255,0.25);
+  transform: translateY(-8px);
+  box-shadow: 0 0 25px rgba(0,194,255,0.3);
 }
 
-/* ===== ANIMATION ===== */
+/* Animation */
 .fade {
   opacity: 0;
   transform: translateY(40px);
-  transition: all 0.8s ease;
+  transition: all .8s ease;
 }
 .fade.show {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* ===== TEXT GLOW ===== */
-.glow-text {
-  color: var(--primary);
-  text-shadow: 0 0 10px rgba(0,194,255,0.6);
-}
-
-/* ===== BUTTON ===== */
+/* Button */
 .btn {
   padding: 12px 20px;
   border-radius: 10px;
-  transition: all .3s ease;
+  transition: .3s;
 }
 .btn-primary {
-  background: var(--primary);
+  background: #00C2FF;
   color: black;
 }
 .btn-primary:hover {
   transform: scale(1.08);
-  box-shadow: 0 0 20px rgba(0,194,255,0.6);
-}
-
-/* ===== SECTION SPACING ===== */
-.section {
-  padding: 100px 0;
+  box-shadow: 0 0 20px #00C2FF;
 }
 </style>
 </head>
 
 <body class="px-6 md:px-20">
 
-<div class="bg-grid"></div>
 <div class="bg-glow"></div>
 
 <!-- HERO -->
-<section class="min-h-screen flex flex-col md:flex-row items-center justify-between gap-12">
+<section class="min-h-screen flex flex-col md:flex-row items-center justify-between gap-10">
 
-<div class="fade max-w-xl">
+<!-- LEFT -->
+<div class="max-w-xl fade">
 <h1 class="text-5xl md:text-7xl font-bold mb-4">
-Fanda
+M Faqih Fitrokhudin S
 </h1>
 
-<p class="glow-text mb-3">
-Cloud Engineer | Infrastructure & Automation
+<p class="text-cyan-400 mb-3">
+Cloud Engineer | VMware • OLVM • Linux • Windows
 </p>
 
-<p class="text-gray-400 mb-8 leading-relaxed">
-Designing scalable, reliable infrastructure with automation and system resilience.
+<p class="text-gray-400 mb-6">
+I build reliable infrastructure systems, automate operations, and ensure high availability across enterprise environments.
 </p>
 
 <div class="flex gap-4">
-<button class="btn btn-primary">View Deployments</button>
+<button class="btn btn-primary">View Work</button>
 <button class="btn border border-cyan-400 hover:bg-cyan-400/10">Contact</button>
 </div>
+
+<!-- STATS -->
+<div class="flex gap-8 mt-10 text-center">
+<div>
+<p class="text-2xl font-bold">3+</p>
+<p class="text-gray-400 text-sm">Years Exp</p>
+</div>
+<div>
+<p class="text-2xl font-bold">20+</p>
+<p class="text-gray-400 text-sm">Systems Managed</p>
+</div>
+<div>
+<p class="text-2xl font-bold">99.9%</p>
+<p class="text-gray-400 text-sm">Uptime</p>
+</div>
 </div>
 
-<!-- STATUS PANEL -->
-<div class="grid gap-4 w-full md:w-96">
-<div class="card p-5 rounded-xl fade">🟢 System Operational</div>
-<div class="card p-5 rounded-xl fade">⚡ Automation Running</div>
-<div class="card p-5 rounded-xl fade">🖥️ Infrastructure Stable</div>
+</div>
+
+<!-- RIGHT PHOTO -->
+<div class="fade">
+<img src="IMG-20250527-WA0013.jpg" 
+class="w-72 md:w-96 rounded-2xl border border-cyan-500/20 shadow-lg">
 </div>
 
 </section>
 
-<!-- PROFILE -->
-<section class="section">
-<h2 class="text-3xl font-bold mb-8 fade">Engineer Profile</h2>
-
-<p class="text-gray-400 max-w-2xl mb-12 fade">
-Cloud Engineer specializing in virtualization, infrastructure management,
-and system automation across VMware and OLVM environments.
-</p>
-
-<div class="grid md:grid-cols-4 gap-6">
-<div class="card p-6 rounded-xl fade">VMware</div>
-<div class="card p-6 rounded-xl fade">OLVM</div>
-<div class="card p-6 rounded-xl fade">Windows</div>
-<div class="card p-6 rounded-xl fade">Linux</div>
-</div>
-</section>
-
-<!-- CAPABILITIES -->
-<section class="section">
-<h2 class="text-3xl font-bold mb-10 fade">Core Capabilities</h2>
-
-<div class="grid md:grid-cols-4 gap-6">
-
-<div class="card p-6 rounded-xl fade">
-<h3 class="glow-text mb-2">Virtualization</h3>
-<p class="text-gray-400 text-sm">VMware, OLVM</p>
-</div>
-
-<div class="card p-6 rounded-xl fade">
-<h3 class="glow-text mb-2">Systems</h3>
-<p class="text-gray-400 text-sm">Windows Server, Linux</p>
-</div>
-
-<div class="card p-6 rounded-xl fade">
-<h3 class="glow-text mb-2">Infrastructure</h3>
-<p class="text-gray-400 text-sm">Monitoring, Deployment</p>
-</div>
-
-<div class="card p-6 rounded-xl fade">
-<h3 class="glow-text mb-2">Automation</h3>
-<p class="text-gray-400 text-sm">RPA, Scripting</p>
-</div>
-
-</div>
-</section>
-
-<!-- PROJECTS -->
-<section class="section">
-<h2 class="text-3xl font-bold mb-10 fade">Deployments & Solutions</h2>
+<!-- SERVICES -->
+<section class="py-20">
+<h2 class="text-3xl font-bold mb-10 fade">What I Do</h2>
 
 <div class="grid md:grid-cols-3 gap-6">
 
 <div class="card p-6 rounded-xl fade">
-<h3 class="glow-text mb-2">VM Migration</h3>
-<p class="text-gray-400 text-sm">VMware → OLVM cluster migration</p>
+<h3 class="text-cyan-400 mb-2">Cloud Infrastructure</h3>
+<p class="text-gray-400 text-sm">
+Design and manage scalable infrastructure across virtual environments.
+</p>
+</div>
+
+<div class="card p-6 rounded-xl fade">
+<h3 class="text-cyan-400 mb-2">Virtualization</h3>
+<p class="text-gray-400 text-sm">
+VMware & OLVM deployment, migration, and optimization.
+</p>
+</div>
+
+<div class="card p-6 rounded-xl fade">
+<h3 class="text-cyan-400 mb-2">Automation</h3>
+<p class="text-gray-400 text-sm">
+Automating infrastructure tasks using RPA and scripting.
+</p>
+</div>
+
+</div>
+</section>
+
+<!-- WORK -->
+<section class="py-20">
+<h2 class="text-3xl font-bold mb-10 fade">My Work</h2>
+
+<div class="grid md:grid-cols-3 gap-6">
+
+<div class="card p-6 rounded-xl fade">
+<h3 class="text-cyan-400 mb-2">VM Migration</h3>
+<p class="text-gray-400 text-sm">
+Migrated production DB cluster VMware → OLVM.
+</p>
 <p class="text-green-400 mt-2 text-sm">+ Stability</p>
 </div>
 
 <div class="card p-6 rounded-xl fade">
-<h3 class="glow-text mb-2">RPA Switchover</h3>
-<p class="text-gray-400 text-sm">Automated failover process</p>
-<p class="text-green-400 mt-2 text-sm">- Manual Work</p>
+<h3 class="text-cyan-400 mb-2">Switchover Automation</h3>
+<p class="text-gray-400 text-sm">
+Automated failover system using RPA.
+</p>
+<p class="text-green-400 mt-2 text-sm">- Downtime</p>
 </div>
 
 <div class="card p-6 rounded-xl fade">
-<h3 class="glow-text mb-2">Report Automation</h3>
-<p class="text-gray-400 text-sm">Infrastructure reporting system</p>
-<p class="text-green-400 mt-2 text-sm">+ Efficiency</p>
+<h3 class="text-cyan-400 mb-2">Monitoring System</h3>
+<p class="text-gray-400 text-sm">
+Built infra monitoring dashboard & alerts.
+</p>
+<p class="text-green-400 mt-2 text-sm">+ Visibility</p>
+</div>
+
+</div>
+</section>
+
+<!-- RESUME STYLE -->
+<section class="py-20">
+<h2 class="text-3xl font-bold mb-10 fade">Experience</h2>
+
+<div class="grid md:grid-cols-2 gap-6">
+
+<div class="card p-6 rounded-xl fade">
+<h3 class="text-cyan-400">Cloud Engineer</h3>
+<p class="text-gray-400 text-sm">
+Managing infrastructure, virtualization, and automation systems.
+</p>
+</div>
+
+<div class="card p-6 rounded-xl fade">
+<h3 class="text-cyan-400">Automation Engineer</h3>
+<p class="text-gray-400 text-sm">
+Building RPA workflows for operational efficiency.
+</p>
 </div>
 
 </div>
 </section>
 
 <!-- CONTACT -->
-<section class="section text-center">
-<h2 class="text-3xl font-bold mb-4 fade">Initiate Connection</h2>
-<p class="text-gray-400 mb-8 fade">
-Let’s build reliable systems together.
+<section class="py-20 text-center">
+<h2 class="text-3xl font-bold mb-4 fade">Contact Me</h2>
+<p class="text-gray-400 mb-6 fade">
+Let’s build reliable infrastructure together.
 </p>
 
-<button class="btn btn-primary fade">Contact Me</button>
+<button class="btn btn-primary fade">Email Me</button>
 </section>
 
 <script>
-/* SCROLL */
 const obs = new IntersectionObserver(entries=>{
 entries.forEach(e=>{
 if(e.isIntersecting){
@@ -226,24 +221,8 @@ e.target.classList.add('show')
 }
 })
 })
-document.querySelectorAll('.fade').forEach(el=>obs.observe(el))
 
-/* TILT */
-if(window.innerWidth > 768){
-document.querySelectorAll('.card').forEach(card=>{
-card.addEventListener('mousemove',e=>{
-const rect = card.getBoundingClientRect()
-const x = e.clientX - rect.left
-const y = e.clientY - rect.top
-card.style.transform =
-`rotateX(${-(y/rect.height-0.5)*10}deg)
- rotateY(${(x/rect.width-0.5)*10}deg)`
-})
-card.addEventListener('mouseleave',()=>{
-card.style.transform='rotateX(0) rotateY(0)'
-})
-})
-}
+document.querySelectorAll('.fade').forEach(el=>obs.observe(el))
 </script>
 
 </body>
