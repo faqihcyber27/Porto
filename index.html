@@ -10,204 +10,163 @@
 
 <style>
 body {
-  background: #05070D;
+  background: radial-gradient(circle at 20% 20%, #0a0f1f, #05070d);
   color: white;
   font-family: system-ui;
-  scroll-behavior: smooth;
 }
 
 /* NAVBAR */
-.navbar {
+.nav {
   backdrop-filter: blur(10px);
-  background: rgba(5,7,13,0.7);
+  background: rgba(5,7,13,0.6);
 }
 
-/* Glow */
-.bg-glow {
-  position: fixed;
-  width: 500px;
-  height: 500px;
-  background: radial-gradient(circle, rgba(0,194,255,0.15), transparent);
-  filter: blur(120px);
-  z-index: -1;
+/* HERO PANEL */
+.hero-box {
+  background: rgba(11,18,32,0.6);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0,194,255,0.2);
 }
 
-/* Card */
+/* PHOTO */
+.profile-img {
+  box-shadow: 0 20px 60px rgba(0,194,255,0.2);
+  transform: translateY(0);
+  transition: .4s;
+}
+.profile-img:hover {
+  transform: translateY(-10px);
+}
+
+/* CARD */
 .card {
-  background: rgba(11,18,32,0.7);
-  border: 1px solid rgba(0,194,255,0.15);
+  background: rgba(11,18,32,0.6);
+  border: 1px solid rgba(0,194,255,0.1);
   transition: .3s;
 }
 .card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 0 25px rgba(0,194,255,0.25);
+  box-shadow: 0 0 30px rgba(0,194,255,0.2);
 }
 
-/* Animation */
+/* BUTTON */
+.btn-primary {
+  background: linear-gradient(135deg,#00C2FF,#007BFF);
+}
+.btn-primary:hover {
+  transform: scale(1.05);
+}
+
+/* FADE */
 .fade {
   opacity: 0;
   transform: translateY(40px);
-  transition: all .8s ease;
+  transition: .8s;
 }
 .fade.show {
   opacity: 1;
   transform: translateY(0);
-}
-
-/* Button */
-.btn {
-  padding: 12px 20px;
-  border-radius: 10px;
-}
-.btn-primary {
-  background: #00C2FF;
-  color: black;
 }
 </style>
 </head>
 
 <body class="px-6 md:px-20">
 
-<div class="bg-glow"></div>
-
 <!-- NAVBAR -->
-<nav class="navbar fixed top-0 left-0 w-full px-6 md:px-20 py-4 flex justify-between items-center z-50">
-  <h1 class="text-cyan-400 font-bold">FAQIH</h1>
-  <div class="hidden md:flex gap-6 text-sm">
-    <a href="#home">Home</a>
-    <a href="#services">Services</a>
-    <a href="#work">Work</a>
-    <a href="#contact">Contact</a>
+<nav class="nav fixed top-0 left-0 w-full flex justify-between items-center px-6 md:px-20 py-4 z-50">
+  <h1 class="text-cyan-400 font-bold text-lg">FAQIH</h1>
+  <div class="hidden md:flex gap-6 text-sm text-gray-300">
+    <a href="#">Home</a>
+    <a href="#">Services</a>
+    <a href="#">Work</a>
+    <a href="#">Contact</a>
   </div>
 </nav>
 
 <!-- HERO -->
-<section id="home" class="min-h-screen flex flex-col md:flex-row items-center justify-between gap-10 pt-24">
+<section class="min-h-screen flex items-center pt-24">
 
-<div class="max-w-xl fade">
-<h1 class="text-4xl md:text-6xl font-bold mb-4">
-M Faqih Fitrokhudin S
+<div class="hero-box rounded-3xl p-10 md:p-16 grid md:grid-cols-2 gap-10 w-full">
+
+<!-- LEFT -->
+<div class="fade">
+<h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-6">
+M Faqih Fitrokhudin
 </h1>
 
-<p class="text-cyan-400 mb-3">
+<p class="text-cyan-400 mb-4 text-lg">
 Cloud Engineer | VMware • OLVM • Linux • Windows
 </p>
 
-<p class="text-gray-400 mb-6">
-Managing large-scale infrastructure, virtualization, and automation across enterprise environments.
+<p class="text-gray-400 mb-8 max-w-lg">
+Managing enterprise-scale infrastructure, virtualization, and automation systems with high availability and reliability.
 </p>
 
-<div class="flex gap-4">
-<button class="btn btn-primary">View Work</button>
-<button class="btn border border-cyan-400">Contact</button>
+<div class="flex gap-4 mb-10">
+<button class="btn-primary px-6 py-3 rounded-xl">View Work</button>
+<button class="border border-cyan-400 px-6 py-3 rounded-xl">Contact</button>
 </div>
 
 <!-- STATS -->
-<div class="grid grid-cols-3 gap-6 mt-10 text-center">
+<div class="grid grid-cols-3 gap-6">
 
 <div>
-<i data-lucide="server"></i>
+<i data-lucide="server" class="text-cyan-400 mb-2"></i>
 <p class="text-2xl font-bold">7000+</p>
 <p class="text-gray-400 text-sm">VM Managed</p>
 </div>
 
 <div>
-<i data-lucide="cpu"></i>
+<i data-lucide="cpu" class="text-cyan-400 mb-2"></i>
 <p class="text-2xl font-bold">400+</p>
 <p class="text-gray-400 text-sm">Host</p>
 </div>
 
 <div>
-<i data-lucide="activity"></i>
+<i data-lucide="activity" class="text-cyan-400 mb-2"></i>
 <p class="text-2xl font-bold">99.9%</p>
 <p class="text-gray-400 text-sm">Uptime</p>
 </div>
 
 </div>
+
 </div>
 
-<!-- PHOTO -->
-<div class="fade">
-<img src="IMG-20250527-WA0013.jpg" 
-class="w-72 md:w-96 rounded-2xl border border-cyan-500/20">
+<!-- RIGHT -->
+<div class="flex justify-center fade">
+<img src="IMG-20250527-WA0013.jpg"
+class="profile-img w-72 md:w-96 rounded-2xl">
+</div>
+
 </div>
 
 </section>
 
 <!-- SERVICES -->
-<section id="services" class="py-20">
+<section class="py-20">
 <h2 class="text-3xl font-bold mb-10 fade">What I Do</h2>
 
 <div class="grid md:grid-cols-3 gap-6">
 
 <div class="card p-6 rounded-xl fade">
-<i data-lucide="cloud" class="mb-3 text-cyan-400"></i>
-<h3 class="text-cyan-400 mb-2">Cloud Infrastructure</h3>
-<p class="text-gray-400 text-sm">
-Managing enterprise-scale infrastructure across environments.
-</p>
+<i data-lucide="cloud" class="text-cyan-400 mb-3"></i>
+<h3 class="text-lg font-semibold mb-2">Cloud Infrastructure</h3>
+<p class="text-gray-400 text-sm">Enterprise infra management</p>
 </div>
 
 <div class="card p-6 rounded-xl fade">
-<i data-lucide="database" class="mb-3 text-cyan-400"></i>
-<h3 class="text-cyan-400 mb-2">Virtualization</h3>
-<p class="text-gray-400 text-sm">
-VMware to OLVM migration, optimization, and management.
-</p>
+<i data-lucide="database" class="text-cyan-400 mb-3"></i>
+<h3 class="text-lg font-semibold mb-2">Virtualization</h3>
+<p class="text-gray-400 text-sm">VMware → OLVM migration</p>
 </div>
 
 <div class="card p-6 rounded-xl fade">
-<i data-lucide="settings" class="mb-3 text-cyan-400"></i>
-<h3 class="text-cyan-400 mb-2">Automation</h3>
-<p class="text-gray-400 text-sm">
-RPA and scripting for operational efficiency.
-</p>
+<i data-lucide="settings" class="text-cyan-400 mb-3"></i>
+<h3 class="text-lg font-semibold mb-2">Automation</h3>
+<p class="text-gray-400 text-sm">RPA & scripting</p>
 </div>
 
 </div>
-</section>
-
-<!-- WORK -->
-<section id="work" class="py-20">
-<h2 class="text-3xl font-bold mb-10 fade">My Work</h2>
-
-<div class="grid md:grid-cols-3 gap-6">
-
-<div class="card p-6 rounded-xl fade">
-<h3 class="text-cyan-400 mb-2">VM Migration</h3>
-<p class="text-gray-400 text-sm">
-Migrated thousands of VM workloads VMware → OLVM.
-</p>
-<p class="text-green-400 mt-2 text-sm">+ Scalability</p>
-</div>
-
-<div class="card p-6 rounded-xl fade">
-<h3 class="text-cyan-400 mb-2">Switchover Automation</h3>
-<p class="text-gray-400 text-sm">
-Automated failover system across infrastructure.
-</p>
-<p class="text-green-400 mt-2 text-sm">- Downtime</p>
-</div>
-
-<div class="card p-6 rounded-xl fade">
-<h3 class="text-cyan-400 mb-2">Infra Monitoring</h3>
-<p class="text-gray-400 text-sm">
-Built monitoring system for VM & host visibility.
-</p>
-<p class="text-green-400 mt-2 text-sm">+ Reliability</p>
-</div>
-
-</div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact" class="py-20 text-center">
-<h2 class="text-3xl font-bold mb-4 fade">Contact Me</h2>
-<p class="text-gray-400 mb-6 fade">
-Let’s build reliable infrastructure together.
-</p>
-
-<button class="btn btn-primary fade">Email Me</button>
 </section>
 
 <script>
