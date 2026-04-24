@@ -25,7 +25,6 @@ body::before {
     linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
   background-size: 40px 40px;
-  pointer-events:none;
 }
 
 /* NAV */
@@ -47,7 +46,7 @@ body::before {
   transform: translateY(-4px);
 }
 
-/* MONITOR COLLAPSE */
+/* COLLAPSE */
 .collapsed .chart-box {
   display:none;
 }
@@ -123,11 +122,76 @@ body::before {
 <p class="text-gray-400 mb-6">
 Managing 7000+ VM & 400+ host across enterprise infrastructure.
 </p>
+
+<div class="grid grid-cols-3 gap-6 text-center mt-8">
+<div><p class="text-xl text-cyan-400 font-bold">7000+</p><p class="text-xs text-gray-500">VM</p></div>
+<div><p class="text-xl text-cyan-400 font-bold">400+</p><p class="text-xs text-gray-500">Host</p></div>
+<div><p class="text-xl text-cyan-400 font-bold">99.9%</p><p class="text-xs text-gray-500">Uptime</p></div>
+</div>
+
 </div>
 
 <div class="flex justify-center">
 <img src="IMG-20250527-WA0013.jpg"
-class="w-72 md:w-96 rounded-2xl border border-gray-700">
+class="w-72 md:w-96 rounded-2xl border border-gray-700 shadow-xl">
+</div>
+
+</div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="py-20">
+<h2 class="text-lg font-semibold mb-6">Services</h2>
+
+<div class="grid md:grid-cols-3 gap-6">
+<div class="card p-6">
+<h3 class="font-semibold mb-2">Infrastructure</h3>
+<p class="text-sm text-gray-400">Enterprise VM, host, storage management</p>
+</div>
+
+<div class="card p-6">
+<h3 class="font-semibold mb-2">Virtualization</h3>
+<p class="text-sm text-gray-400">VMware → OLVM migration</p>
+</div>
+
+<div class="card p-6">
+<h3 class="font-semibold mb-2">Automation</h3>
+<p class="text-sm text-gray-400">RPA, scripting & failover automation</p>
+</div>
+</div>
+</section>
+
+<!-- WORK -->
+<section id="work" class="py-20">
+<h2 class="text-lg font-semibold mb-6">Work Experience</h2>
+
+<div class="grid md:grid-cols-3 gap-6">
+
+<div class="card p-6">
+<h3 class="text-cyan-400 mb-2">VM Migration</h3>
+<ul class="text-sm text-gray-400 list-disc ml-4">
+<li>7000+ VM migrated</li>
+<li>Zero downtime</li>
+<li>Cluster optimization</li>
+</ul>
+</div>
+
+<div class="card p-6">
+<h3 class="text-cyan-400 mb-2">Automation</h3>
+<ul class="text-sm text-gray-400 list-disc ml-4">
+<li>Failover automation</li>
+<li>Reduce manual work</li>
+<li>Improve recovery</li>
+</ul>
+</div>
+
+<div class="card p-6">
+<h3 class="text-cyan-400 mb-2">Monitoring</h3>
+<ul class="text-sm text-gray-400 list-disc ml-4">
+<li>Realtime monitoring</li>
+<li>Alerting system</li>
+<li>Performance tracking</li>
+</ul>
 </div>
 
 </div>
@@ -140,27 +204,21 @@ class="w-72 md:w-96 rounded-2xl border border-gray-700">
 <div class="grid md:grid-cols-2 gap-6">
 
 <div class="card p-6" id="cpuCard">
-<div class="flex justify-between items-center mb-2">
+<div class="flex justify-between">
 <p class="text-sm text-gray-400">CPU Usage</p>
-<button onclick="toggleCard('cpuCard')" class="text-xs text-gray-400">toggle</button>
+<button onclick="toggleCard('cpuCard')" class="text-xs">toggle</button>
 </div>
-
 <h3 id="cpuVal" class="text-xl text-cyan-400 mb-2">0%</h3>
-<div class="chart-box">
-<canvas id="cpu"></canvas>
-</div>
+<div class="chart-box"><canvas id="cpu"></canvas></div>
 </div>
 
 <div class="card p-6" id="memCard">
-<div class="flex justify-between items-center mb-2">
+<div class="flex justify-between">
 <p class="text-sm text-gray-400">Memory Usage</p>
-<button onclick="toggleCard('memCard')" class="text-xs text-gray-400">toggle</button>
+<button onclick="toggleCard('memCard')" class="text-xs">toggle</button>
 </div>
-
 <h3 id="memVal" class="text-xl text-green-400 mb-2">0%</h3>
-<div class="chart-box">
-<canvas id="mem"></canvas>
-</div>
+<div class="chart-box"><canvas id="mem"></canvas></div>
 </div>
 
 </div>
@@ -172,25 +230,16 @@ class="w-72 md:w-96 rounded-2xl border border-gray-700">
 
 <div class="flex justify-center gap-6">
 
-<!-- WhatsApp -->
-<a href="https://wa.me/+628567776457" class="card p-4">
-<svg width="24" height="24" fill="#25D366">
-<path d="M20.5 3.5A10 10 0 003.3 17.8L2 22l4.4-1.3A10 10 0 1020.5 3.5z"/>
-</svg>
+<a href="https://wa.me/628567776457" class="card p-4">
+<svg width="24" height="24" fill="#25D366"><path d="M20 3.5A10 10 0 003.5 20L2 22l2.5-.7A10 10 0 1020 3.5z"/></svg>
 </a>
 
-<!-- Email -->
 <a href="mailto:jihadwajib68@gmail.com" class="card p-4">
-<svg width="24" height="24" fill="#fff">
-<path d="M2 4h20v16H2z"/>
-</svg>
+<svg width="24" height="24" fill="white"><path d="M2 6l10 7 10-7v12H2z"/></svg>
 </a>
 
-<!-- LinkedIn -->
 <a href="https://linkedin.com/in/m-faqih-fitrokhudin-s" class="card p-4">
-<svg width="24" height="24" fill="#0A66C2">
-<path d="M20 2H4v20h16z"/>
-</svg>
+<svg width="24" height="24" fill="#0A66C2"><path d="M4 4h16v16H4z"/></svg>
 </a>
 
 </div>
@@ -199,9 +248,8 @@ class="w-72 md:w-96 rounded-2xl border border-gray-700">
 <script>
 
 /* BOOT */
-let lines=["Init system...","Loading infra...","Checking VM...","Checking Host...","Ready 🚀"]
-let li=0,ci=0
-let el=document.getElementById("boot-text")
+let lines=["Init system...","Loading infra...","Checking VM...","Ready 🚀"]
+let li=0,ci=0,el=document.getElementById("boot-text")
 function boot(){
 if(li<lines.length){
 if(ci<lines[li].length){
@@ -219,14 +267,14 @@ boot()
 let text="M Faqih Fitrokhudin S"
 let role="Cloud Engineer"
 let i=0,dir=1
-const nameEl=document.getElementById("name")
-const roleEl=document.getElementById("role")
+nameEl=document.getElementById("name")
+roleEl=document.getElementById("role")
 roleEl.innerText=role
 
 setInterval(()=>{
 if(dir===1){
 nameEl.innerText=text.substring(0,i++)
-if(i>text.length){dir=-1; setTimeout(()=>{},500)}
+if(i>text.length){dir=-1}
 }else{
 nameEl.innerText=text.substring(0,i--)
 if(i===0){dir=1}
@@ -237,23 +285,21 @@ if(i===0){dir=1}
 function createChart(id,color){
 return new Chart(document.getElementById(id),{
 type:"line",
-data:{
-labels:Array(20),
-datasets:[{
-data:Array(20).fill(50),
+data:{labels:Array(30),datasets:[{
+data:Array(30).fill(50),
 borderColor:color,
-backgroundColor:color+"20",
+backgroundColor:color+"22",
 fill:true,
-tension:0.4
-}]
-},
+tension:0.45,
+pointRadius:0
+}]},
 options:{
 responsive:true,
 maintainAspectRatio:false,
 plugins:{legend:false},
 scales:{
-x:{grid:{color:"rgba(255,255,255,0.05)"}},
-y:{grid:{color:"rgba(255,255,255,0.05)"}}
+x:{display:false},
+y:{min:0,max:100,grid:{color:"rgba(255,255,255,0.04)"}}
 }
 }
 })
@@ -263,8 +309,10 @@ const cpuChart=createChart("cpu","#00C2FF")
 const memChart=createChart("mem","#22C55E")
 
 setInterval(()=>{
-let cpu=Math.floor(Math.random()*70+20)
-let mem=Math.floor(Math.random()*60+30)
+let cpu=Math.min(100, Math.max(10, cpuChart.data.datasets[0].data.slice(-1)[0]+(Math.random()*20-10)))
+let mem=Math.min(100, Math.max(10, memChart.data.datasets[0].data.slice(-1)[0]+(Math.random()*20-10)))
+
+cpu=Math.floor(cpu); mem=Math.floor(mem)
 
 cpuVal.innerText=cpu+"%"
 memVal.innerText=mem+"%"
@@ -277,7 +325,7 @@ memChart.data.datasets[0].data.push(mem)
 memChart.data.datasets[0].data.shift()
 memChart.update()
 
-},1500)
+},1200)
 
 /* COLLAPSE */
 function toggleCard(id){
