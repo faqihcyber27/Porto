@@ -17,6 +17,7 @@ body {
   scroll-behavior: smooth;
 }
 
+/* GRID */
 body::before {
   content:"";
   position:fixed;
@@ -27,12 +28,14 @@ body::before {
   background-size: 40px 40px;
 }
 
+/* NAVBAR UPGRADE */
 .nav {
-  backdrop-filter: blur(10px);
-  background: rgba(11,15,23,0.7);
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  backdrop-filter: blur(14px);
+  background: rgba(11,15,23,0.8);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 
+/* CARD */
 .card {
   background: #111827;
   border: 1px solid rgba(255,255,255,0.05);
@@ -44,9 +47,16 @@ body::before {
   transform: translateY(-4px);
 }
 
+/* MOBILE MENU */
+#mobileMenu {
+  transition: all .3s ease;
+}
+
+/* COLLAPSE */
 .collapsed .chart-box { display:none; }
 .chart-box { height:240px }
 
+/* CURSOR */
 .cursor {
   display:inline-block;
   width:2px;
@@ -55,6 +65,7 @@ body::before {
 }
 @keyframes blink {50%{opacity:0}}
 
+/* PROGRESS */
 #progress {
   height:3px;
   background:#00C2FF;
@@ -65,6 +76,7 @@ body::before {
   z-index:9999;
 }
 
+/* BOOT */
 #boot-screen {
   position:fixed;
   inset:0;
@@ -86,17 +98,37 @@ body::before {
 <pre id="boot-text" class="text-green-400 font-mono text-sm"></pre>
 </div>
 
-<!-- NAV -->
+<!-- NAVBAR -->
 <nav class="nav fixed top-0 left-0 w-full flex justify-between items-center px-6 md:px-20 py-4 z-50">
-<h1 class="text-cyan-400 font-bold">FAQIH</h1>
-<div class="hidden md:flex gap-6 text-sm text-gray-400">
-<a href="#home">Home</a>
-<a href="#services">Services</a>
-<a href="#work">Work</a>
-<a href="#monitor">Monitor</a>
-<a href="#contact">Contact</a>
+
+<h1 class="text-cyan-400 font-bold tracking-wider">FAQIH</h1>
+
+<!-- DESKTOP -->
+<div class="hidden md:flex gap-8 text-sm text-gray-400">
+<a href="#home" class="hover:text-cyan-400 transition">Home</a>
+<a href="#services" class="hover:text-cyan-400 transition">Services</a>
+<a href="#work" class="hover:text-cyan-400 transition">Work</a>
+<a href="#monitor" class="hover:text-cyan-400 transition">Monitor</a>
+<a href="#contact" class="hover:text-cyan-400 transition">Contact</a>
 </div>
+
+<!-- MOBILE BUTTON -->
+<button onclick="toggleMenu()" class="md:hidden text-cyan-400">
+<i data-lucide="menu"></i>
+</button>
+
 </nav>
+
+<!-- MOBILE MENU -->
+<div id="mobileMenu" class="hidden fixed top-[70px] left-0 w-full bg-[#0B0F17]/95 backdrop-blur border-t border-gray-800 flex flex-col text-center z-40">
+
+<a onclick="closeMenu()" href="#home" class="py-4 border-b border-gray-800">Home</a>
+<a onclick="closeMenu()" href="#services" class="py-4 border-b border-gray-800">Services</a>
+<a onclick="closeMenu()" href="#work" class="py-4 border-b border-gray-800">Work</a>
+<a onclick="closeMenu()" href="#monitor" class="py-4 border-b border-gray-800">Monitor</a>
+<a onclick="closeMenu()" href="#contact" class="py-4">Contact</a>
+
+</div>
 
 <!-- HERO -->
 <section id="home" class="min-h-screen flex items-center pt-24">
@@ -244,7 +276,7 @@ class="w-72 md:w-96 rounded-2xl border border-gray-700 shadow-xl">
 <div class="flex justify-center gap-6">
 
 <!-- WhatsApp -->
-<a href="https://wa.me/628567776457" target="_blank"
+<a href="https://wa.me/+628567776457" target="_blank"
 class="card p-4 flex items-center justify-center hover:scale-110 transition">
 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="#25D366">
 <path d="M20.52 3.48A11.94 11.94 0 0012 0C5.37 0 .03 5.34 0 11.97c0 2.11.55 4.18 1.6 6.01L0 24l6.18-1.61a11.93 11.93 0 005.82 1.48h.01c6.63 0 12-5.34 12-11.97a11.9 11.9 0 00-3.49-8.42zM12 21.5a9.5 9.5 0 01-4.84-1.32l-.35-.2-3.67.96.98-3.58-.23-.37A9.48 9.48 0 012.5 12C2.5 6.76 6.76 2.5 12 2.5S21.5 6.76 21.5 12 17.24 21.5 12 21.5z"/>
@@ -261,7 +293,7 @@ class="card p-4 flex items-center justify-center hover:scale-110 transition">
 </a>
 
 <!-- LinkedIn -->
-<a href="https://linkedin.com/in/m-faqih-fitrokhudin-s" target="_blank"
+<a href="https://www.linkedin.com/in/m-faqih-fitrokhudin-s-2a0545304?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank"
 class="card p-4 flex items-center justify-center hover:scale-110 transition">
 <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="#0A66C2">
 <path d="M20.45 20.45h-3.55v-5.4c0-1.29-.03-2.94-1.79-2.94-1.79 0-2.07 1.4-2.07 2.85v5.49H9.5V9h3.41v1.56h.05c.47-.89 1.61-1.83 3.31-1.83 3.54 0 4.2 2.33 4.2 5.35v6.37zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/>
@@ -271,13 +303,28 @@ class="card p-4 flex items-center justify-center hover:scale-110 transition">
 </div>
 </section>
 
+<!-- FOOTER -->
+<footer class="text-center py-10 text-gray-500 text-sm border-t border-gray-800">
+© 2026 Faqih. All rights reserved.
+</footer>
+
 <script>
 
-/* INIT ICON */
+/* ICON */
 lucide.createIcons()
 
+/* MOBILE MENU */
+function toggleMenu(){
+const menu=document.getElementById("mobileMenu")
+menu.classList.toggle("hidden")
+lucide.createIcons()
+}
+function closeMenu(){
+document.getElementById("mobileMenu").classList.add("hidden")
+}
+
 /* BOOT */
-let lines=["Init system...","Loading infra...","Checking VM...","Checking Host...","System Ready 🚀"]
+let lines=["Init system...","Loading infra...","Checking VM...","System Ready 🚀"]
 let li=0,ci=0,el=document.getElementById("boot-text")
 function boot(){
 if(li<lines.length){
@@ -310,7 +357,7 @@ if(i===0){dir=1}
 }
 },80)
 
-/* CHART FIX */
+/* CHART */
 function createChart(id,color){
 return new Chart(document.getElementById(id),{
 type:"line",
@@ -338,27 +385,24 @@ const memChart=createChart("mem","#22C55E")
 let cpu=50, mem=40
 
 setInterval(()=>{
-cpu += (Math.random()*6-3)
-mem += (Math.random()*6-3)
-
+cpu+=(Math.random()*6-3)
+mem+=(Math.random()*6-3)
 cpu=Math.max(10,Math.min(95,cpu))
 mem=Math.max(20,Math.min(90,mem))
 
 cpu=Math.floor(cpu)
 mem=Math.floor(mem)
 
-document.getElementById("cpuVal").innerText=cpu+"%"
-document.getElementById("memVal").innerText=mem+"%"
+cpuVal.innerText=cpu+"%"
+memVal.innerText=mem+"%"
 
 cpuChart.data.datasets[0].data.push(cpu)
 cpuChart.data.datasets[0].data.shift()
-
 memChart.data.datasets[0].data.push(mem)
 memChart.data.datasets[0].data.shift()
 
 cpuChart.update()
 memChart.update()
-
 },1000)
 
 /* COLLAPSE */
