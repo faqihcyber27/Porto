@@ -22,7 +22,7 @@ body {
   background: rgba(5,7,13,0.7);
 }
 
-/* section fix offset */
+/* section offset */
 section {
   scroll-margin-top: 100px;
 }
@@ -38,6 +38,18 @@ section {
   box-shadow: 0 0 30px rgba(0,194,255,0.2);
 }
 
+/* typing cursor */
+.cursor {
+  display: inline-block;
+  background: #00C2FF;
+  width: 2px;
+  margin-left: 5px;
+  animation: blink 1s infinite;
+}
+@keyframes blink {
+  50% { opacity: 0 }
+}
+
 /* fade */
 .fade {
   opacity: 0;
@@ -49,7 +61,6 @@ section {
   transform: translateY(0);
 }
 
-/* active nav */
 .active {
   color: #00C2FF;
 }
@@ -75,12 +86,12 @@ section {
 <div class="grid md:grid-cols-2 gap-10 w-full">
 
 <div class="fade">
-<h1 class="text-5xl md:text-6xl font-bold mb-6">
-M Faqih Fitrokhudin
+<h1 class="text-4xl md:text-6xl font-bold mb-6">
+<span id="typing-name"></span><span class="cursor"></span>
 </h1>
 
 <p class="text-cyan-400 mb-4">
-Cloud Engineer | VMware • OLVM • Linux • Windows
+<span id="typing-role"></span>
 </p>
 
 <p class="text-gray-400 mb-6">
@@ -116,7 +127,6 @@ Managing 7000+ VM & 400+ host across enterprise infrastructure.
 </div>
 
 </div>
-
 </section>
 
 <!-- SERVICES -->
@@ -124,20 +134,25 @@ Managing 7000+ VM & 400+ host across enterprise infrastructure.
 <h2 class="text-3xl font-bold mb-10 fade">What I Do</h2>
 
 <div class="grid md:grid-cols-3 gap-6">
+
 <div class="card p-6 rounded-xl fade">
 <i data-lucide="cloud" class="text-cyan-400 mb-3"></i>
 <h3>Cloud Infrastructure</h3>
+<p class="text-gray-400 text-sm">Manage large-scale infra</p>
 </div>
 
 <div class="card p-6 rounded-xl fade">
 <i data-lucide="database" class="text-cyan-400 mb-3"></i>
 <h3>Virtualization</h3>
+<p class="text-gray-400 text-sm">VMware → OLVM migration</p>
 </div>
 
 <div class="card p-6 rounded-xl fade">
 <i data-lucide="settings" class="text-cyan-400 mb-3"></i>
 <h3>Automation</h3>
+<p class="text-gray-400 text-sm">RPA & scripting</p>
 </div>
+
 </div>
 </section>
 
@@ -146,20 +161,90 @@ Managing 7000+ VM & 400+ host across enterprise infrastructure.
 <h2 class="text-3xl font-bold mb-10 fade">My Work</h2>
 
 <div class="grid md:grid-cols-3 gap-6">
-<div class="card p-6 rounded-xl fade">VM Migration</div>
-<div class="card p-6 rounded-xl fade">Switchover Automation</div>
-<div class="card p-6 rounded-xl fade">Monitoring System</div>
+
+<div class="card p-6 rounded-xl fade">
+<h3 class="text-cyan-400 mb-2">VM Migration</h3>
+<ul class="text-gray-400 text-sm list-disc ml-4">
+<li>Migrate 7000+ VM VMware → OLVM</li>
+<li>Zero downtime planning</li>
+<li>Cluster & storage optimization</li>
+</ul>
+</div>
+
+<div class="card p-6 rounded-xl fade">
+<h3 class="text-cyan-400 mb-2">Switchover Automation</h3>
+<ul class="text-gray-400 text-sm list-disc ml-4">
+<li>Automate failover process</li>
+<li>Reduce manual intervention</li>
+<li>Improve recovery speed</li>
+</ul>
+</div>
+
+<div class="card p-6 rounded-xl fade">
+<h3 class="text-cyan-400 mb-2">Monitoring System</h3>
+<ul class="text-gray-400 text-sm list-disc ml-4">
+<li>Monitor VM & host health</li>
+<li>Alerting & reporting</li>
+<li>Performance visibility</li>
+</ul>
+</div>
+
 </div>
 </section>
 
 <!-- CONTACT -->
 <section id="contact" class="py-20 text-center">
-<h2 class="text-3xl font-bold mb-4 fade">Contact</h2>
-<p class="text-gray-400 mb-6 fade">Let’s connect</p>
+<h2 class="text-3xl font-bold mb-6 fade">Contact Me</h2>
+
+<div class="flex justify-center gap-8 fade">
+
+<a href="https://wa.me/+62867776457" target="_blank" class="card p-4 rounded-xl">
+<i data-lucide="phone"></i>
+<p class="text-sm mt-2">WhatsApp</p>
+</a>
+
+<a href="mailto:jihadwajib68@gmail.com" class="card p-4 rounded-xl">
+<i data-lucide="mail"></i>
+<p class="text-sm mt-2">Email</p>
+</a>
+
+<a href="https://www.linkedin.com/in/m-faqih-fitrokhudin-s-2a0545304?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="card p-4 rounded-xl">
+<i data-lucide="linkedin"></i>
+<p class="text-sm mt-2">LinkedIn</p>
+</a>
+
+</div>
+
 </section>
 
 <script>
 lucide.createIcons()
+
+/* typing */
+const nameText = "M Faqih Fitrokhudin"
+const roleText = "Cloud Engineer | VMware • OLVM • Linux • Windows"
+
+let i = 0
+function typeName(){
+  if(i < nameText.length){
+    document.getElementById("typing-name").innerHTML += nameText.charAt(i)
+    i++
+    setTimeout(typeName, 50)
+  } else {
+    typeRole()
+  }
+}
+
+let j = 0
+function typeRole(){
+  if(j < roleText.length){
+    document.getElementById("typing-role").innerHTML += roleText.charAt(j)
+    j++
+    setTimeout(typeRole, 30)
+  }
+}
+
+typeName()
 
 /* fade */
 const obs = new IntersectionObserver(entries=>{
