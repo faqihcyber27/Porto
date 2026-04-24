@@ -39,15 +39,19 @@ section {
   box-shadow: 0 0 30px rgba(0,194,255,0.25);
 }
 
-/* FADE */
-.fade {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: .8s;
+/* FIX CHART */
+.chart-box {
+  height: 220px;
 }
-.fade.show {
-  opacity: 1;
-  transform: translateY(0);
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* FIX ICON */
+i[data-lucide] {
+  width: 24px;
+  height: 24px;
 }
 
 /* CURSOR */
@@ -115,7 +119,6 @@ Managing 7000+ VM & 400+ host across enterprise infrastructure.
 </p>
 
 <div class="grid grid-cols-3 gap-6 text-center mt-8">
-
 <div>
 <i data-lucide="server" class="mx-auto text-cyan-400"></i>
 <p class="text-xl font-bold">7000+</p>
@@ -133,7 +136,6 @@ Managing 7000+ VM & 400+ host across enterprise infrastructure.
 <p class="text-xl font-bold">99.9%</p>
 <p class="text-gray-400 text-xs">Uptime</p>
 </div>
-
 </div>
 </div>
 
@@ -149,25 +151,20 @@ Managing 7000+ VM & 400+ host across enterprise infrastructure.
 <h2 class="text-2xl font-bold mb-10">Services</h2>
 
 <div class="grid md:grid-cols-3 gap-6">
-
 <div class="card p-6 rounded-xl">
 <i data-lucide="cloud"></i>
 <h3 class="mt-3">Infrastructure</h3>
-<p class="text-gray-400 text-sm">Enterprise infra</p>
 </div>
 
 <div class="card p-6 rounded-xl">
 <i data-lucide="database"></i>
 <h3 class="mt-3">Virtualization</h3>
-<p class="text-gray-400 text-sm">VMware → OLVM</p>
 </div>
 
 <div class="card p-6 rounded-xl">
 <i data-lucide="settings"></i>
 <h3 class="mt-3">Automation</h3>
-<p class="text-gray-400 text-sm">RPA & scripting</p>
 </div>
-
 </div>
 </section>
 
@@ -176,31 +173,9 @@ Managing 7000+ VM & 400+ host across enterprise infrastructure.
 <h2 class="text-2xl font-bold mb-10">Work</h2>
 
 <div class="grid md:grid-cols-3 gap-6">
-
-<div class="card p-6 rounded-xl">
-<h3 class="text-cyan-400">Migration</h3>
-<ul class="text-sm text-gray-400 list-disc ml-4">
-<li>7000+ VM migrated</li>
-<li>Zero downtime</li>
-</ul>
-</div>
-
-<div class="card p-6 rounded-xl">
-<h3 class="text-cyan-400">Automation</h3>
-<ul class="text-sm text-gray-400 list-disc ml-4">
-<li>Failover automation</li>
-<li>Reduce manual</li>
-</ul>
-</div>
-
-<div class="card p-6 rounded-xl">
-<h3 class="text-cyan-400">Monitoring</h3>
-<ul class="text-sm text-gray-400 list-disc ml-4">
-<li>VM monitoring</li>
-<li>Alerting system</li>
-</ul>
-</div>
-
+<div class="card p-6 rounded-xl">Migration</div>
+<div class="card p-6 rounded-xl">Automation</div>
+<div class="card p-6 rounded-xl">Monitoring</div>
 </div>
 </section>
 
@@ -210,12 +185,12 @@ Managing 7000+ VM & 400+ host across enterprise infrastructure.
 
 <div class="grid md:grid-cols-2 gap-6">
 
-<div class="card p-6">
-<canvas id="cpu" height="120"></canvas>
+<div class="card p-6 chart-box">
+<canvas id="cpu"></canvas>
 </div>
 
-<div class="card p-6">
-<canvas id="mem" height="120"></canvas>
+<div class="card p-6 chart-box">
+<canvas id="mem"></canvas>
 </div>
 
 </div>
@@ -226,8 +201,7 @@ Managing 7000+ VM & 400+ host across enterprise infrastructure.
 <h2 class="text-2xl font-bold mb-6">Contact</h2>
 
 <div class="flex justify-center gap-6">
-
-<a href="https://wa.me/+628567776457" class="card p-4">
+<a href="https://wa.me/628567776457" class="card p-4">
 <i data-lucide="phone"></i>
 </a>
 
@@ -238,40 +212,32 @@ Managing 7000+ VM & 400+ host across enterprise infrastructure.
 <a href="https://linkedin.com/in/m-faqih-fitrokhudin-s" class="card p-4">
 <i data-lucide="linkedin"></i>
 </a>
-
 </div>
 </section>
 
 <script>
 window.onload = () => {
 
-/* ICON */
-lucide.createIcons()
+/* FIX ICON */
+setTimeout(() => {
+  lucide.createIcons()
+}, 100)
 
 /* typing */
 let name="M Faqih Fitrokhudin"
 let role="Cloud Engineer"
 let i=0,j=0
-
-function t1(){
-if(i<name.length){
-document.getElementById("name").innerHTML+=name[i++]
-setTimeout(t1,50)
-}else t2()
-}
-function t2(){
-if(j<role.length){
-document.getElementById("role").innerHTML+=role[j++]
-setTimeout(t2,30)
-}
-}
+function t1(){if(i<name.length){nameEl.innerHTML+=name[i++];setTimeout(t1,50)}else t2()}
+function t2(){if(j<role.length){roleEl.innerHTML+=role[j++];setTimeout(t2,30)}}
+const nameEl=document.getElementById("name")
+const roleEl=document.getElementById("role")
 t1()
 
 /* chart */
 const cpu=new Chart(document.getElementById("cpu"),{
 type:"line",
 data:{labels:Array(10),datasets:[{data:Array(10).fill(50),borderColor:"#00C2FF",tension:0.4}]},
-options:{plugins:{legend:false},scales:{x:{display:false},y:{display:false}}}
+options:{responsive:true,maintainAspectRatio:false,plugins:{legend:false},scales:{x:{display:false},y:{display:false}}}
 })
 
 setInterval(()=>{
@@ -283,7 +249,7 @@ cpu.update()
 const mem=new Chart(document.getElementById("mem"),{
 type:"line",
 data:{labels:Array(10),datasets:[{data:Array(10).fill(30),borderColor:"#00ff88",tension:0.4}]},
-options:{plugins:{legend:false},scales:{x:{display:false},y:{display:false}}}
+options:{responsive:true,maintainAspectRatio:false,plugins:{legend:false},scales:{x:{display:false},y:{display:false}}}
 })
 
 setInterval(()=>{
@@ -302,7 +268,6 @@ document.getElementById("progress").style.width=(scrollY/h*100)+"%"
 let lines=["Init system...","Checking VM...","Checking host...","Ready 🚀"]
 let li=0,ci=0
 let el=document.getElementById("boot-text")
-
 function boot(){
 if(li<lines.length){
 if(ci<lines[li].length){
