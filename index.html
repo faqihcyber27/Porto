@@ -6,15 +6,23 @@
 <title>Faqih | Cloud Engineer</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
 
 <style>
 body {
   background: #05070D;
   color: white;
   font-family: system-ui;
+  scroll-behavior: smooth;
 }
 
-/* Glow background */
+/* NAVBAR */
+.navbar {
+  backdrop-filter: blur(10px);
+  background: rgba(5,7,13,0.7);
+}
+
+/* Glow */
 .bg-glow {
   position: fixed;
   width: 500px;
@@ -27,14 +35,12 @@ body {
 /* Card */
 .card {
   background: rgba(11,18,32,0.7);
-  backdrop-filter: blur(12px);
   border: 1px solid rgba(0,194,255,0.15);
-  transition: all .3s ease;
+  transition: .3s;
 }
-
 .card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 0 25px rgba(0,194,255,0.3);
+  transform: translateY(-6px);
+  box-shadow: 0 0 25px rgba(0,194,255,0.25);
 }
 
 /* Animation */
@@ -52,15 +58,10 @@ body {
 .btn {
   padding: 12px 20px;
   border-radius: 10px;
-  transition: .3s;
 }
 .btn-primary {
   background: #00C2FF;
   color: black;
-}
-.btn-primary:hover {
-  transform: scale(1.08);
-  box-shadow: 0 0 20px #00C2FF;
 }
 </style>
 </head>
@@ -69,12 +70,22 @@ body {
 
 <div class="bg-glow"></div>
 
-<!-- HERO -->
-<section class="min-h-screen flex flex-col md:flex-row items-center justify-between gap-10">
+<!-- NAVBAR -->
+<nav class="navbar fixed top-0 left-0 w-full px-6 md:px-20 py-4 flex justify-between items-center z-50">
+  <h1 class="text-cyan-400 font-bold">FAQIH</h1>
+  <div class="hidden md:flex gap-6 text-sm">
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#work">Work</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
 
-<!-- LEFT -->
+<!-- HERO -->
+<section id="home" class="min-h-screen flex flex-col md:flex-row items-center justify-between gap-10 pt-24">
+
 <div class="max-w-xl fade">
-<h1 class="text-5xl md:text-7xl font-bold mb-4">
+<h1 class="text-4xl md:text-6xl font-bold mb-4">
 M Faqih Fitrokhudin S
 </h1>
 
@@ -83,64 +94,73 @@ Cloud Engineer | VMware • OLVM • Linux • Windows
 </p>
 
 <p class="text-gray-400 mb-6">
-I build reliable infrastructure systems, automate operations, and ensure high availability across enterprise environments.
+Managing large-scale infrastructure, virtualization, and automation across enterprise environments.
 </p>
 
 <div class="flex gap-4">
 <button class="btn btn-primary">View Work</button>
-<button class="btn border border-cyan-400 hover:bg-cyan-400/10">Contact</button>
+<button class="btn border border-cyan-400">Contact</button>
 </div>
 
 <!-- STATS -->
-<div class="flex gap-8 mt-10 text-center">
+<div class="grid grid-cols-3 gap-6 mt-10 text-center">
+
 <div>
-<p class="text-2xl font-bold">3+</p>
-<p class="text-gray-400 text-sm">Years Exp</p>
+<i data-lucide="server"></i>
+<p class="text-2xl font-bold">7000+</p>
+<p class="text-gray-400 text-sm">VM Managed</p>
 </div>
+
 <div>
-<p class="text-2xl font-bold">7k+</p>
-<p class="text-gray-400 text-sm">Systems Managed</p>
+<i data-lucide="cpu"></i>
+<p class="text-2xl font-bold">400+</p>
+<p class="text-gray-400 text-sm">Host</p>
 </div>
+
 <div>
+<i data-lucide="activity"></i>
 <p class="text-2xl font-bold">99.9%</p>
 <p class="text-gray-400 text-sm">Uptime</p>
 </div>
-</div>
 
 </div>
+</div>
 
-<!-- RIGHT PHOTO -->
+<!-- PHOTO -->
 <div class="fade">
 <img src="IMG-20250527-WA0013.jpg" 
-class="w-72 md:w-96 rounded-2xl border border-cyan-500/20 shadow-lg">
+class="w-72 md:w-96 rounded-2xl border border-cyan-500/20">
 </div>
 
 </section>
 
 <!-- SERVICES -->
-<section class="py-20">
+<section id="services" class="py-20">
 <h2 class="text-3xl font-bold mb-10 fade">What I Do</h2>
 
 <div class="grid md:grid-cols-3 gap-6">
 
 <div class="card p-6 rounded-xl fade">
+<i data-lucide="cloud" class="mb-3 text-cyan-400"></i>
 <h3 class="text-cyan-400 mb-2">Cloud Infrastructure</h3>
 <p class="text-gray-400 text-sm">
-Design and manage scalable infrastructure across virtual environments.
+Managing enterprise-scale infrastructure across environments.
 </p>
 </div>
 
 <div class="card p-6 rounded-xl fade">
+<i data-lucide="database" class="mb-3 text-cyan-400"></i>
 <h3 class="text-cyan-400 mb-2">Virtualization</h3>
 <p class="text-gray-400 text-sm">
-VMware & OLVM deployment, migration, and optimization.
+VMware to OLVM migration, optimization, and management.
 </p>
 </div>
 
 <div class="card p-6 rounded-xl fade">
+<i data-lucide="settings" class="mb-3 text-cyan-400"></i>
 <h3 class="text-cyan-400 mb-2">Automation</h3>
 <p class="text-gray-400 text-sm">
-Automating infrastructure tasks using RPA and scripting.
+RPA and scripting for operational efficiency.
 </p>
 </div>
 
@@ -148,7 +168,7 @@ Automating infrastructure tasks using RPA and scripting.
 </section>
 
 <!-- WORK -->
-<section class="py-20">
+<section id="work" class="py-20">
 <h2 class="text-3xl font-bold mb-10 fade">My Work</h2>
 
 <div class="grid md:grid-cols-3 gap-6">
@@ -156,55 +176,32 @@ Automating infrastructure tasks using RPA and scripting.
 <div class="card p-6 rounded-xl fade">
 <h3 class="text-cyan-400 mb-2">VM Migration</h3>
 <p class="text-gray-400 text-sm">
-Migrated production DB cluster VMware → OLVM.
+Migrated thousands of VM workloads VMware → OLVM.
 </p>
-<p class="text-green-400 mt-2 text-sm">+ Stability</p>
+<p class="text-green-400 mt-2 text-sm">+ Scalability</p>
 </div>
 
 <div class="card p-6 rounded-xl fade">
 <h3 class="text-cyan-400 mb-2">Switchover Automation</h3>
 <p class="text-gray-400 text-sm">
-Automated failover system using RPA.
+Automated failover system across infrastructure.
 </p>
 <p class="text-green-400 mt-2 text-sm">- Downtime</p>
 </div>
 
 <div class="card p-6 rounded-xl fade">
-<h3 class="text-cyan-400 mb-2">Monitoring System</h3>
+<h3 class="text-cyan-400 mb-2">Infra Monitoring</h3>
 <p class="text-gray-400 text-sm">
-Built infra monitoring dashboard & alerts.
+Built monitoring system for VM & host visibility.
 </p>
-<p class="text-green-400 mt-2 text-sm">+ Visibility</p>
-</div>
-
-</div>
-</section>
-
-<!-- RESUME STYLE -->
-<section class="py-20">
-<h2 class="text-3xl font-bold mb-10 fade">Experience</h2>
-
-<div class="grid md:grid-cols-2 gap-6">
-
-<div class="card p-6 rounded-xl fade">
-<h3 class="text-cyan-400">Cloud Engineer</h3>
-<p class="text-gray-400 text-sm">
-Managing infrastructure, virtualization, and automation systems.
-</p>
-</div>
-
-<div class="card p-6 rounded-xl fade">
-<h3 class="text-cyan-400">Automation Engineer</h3>
-<p class="text-gray-400 text-sm">
-Building RPA workflows for operational efficiency.
-</p>
+<p class="text-green-400 mt-2 text-sm">+ Reliability</p>
 </div>
 
 </div>
 </section>
 
 <!-- CONTACT -->
-<section class="py-20 text-center">
+<section id="contact" class="py-20 text-center">
 <h2 class="text-3xl font-bold mb-4 fade">Contact Me</h2>
 <p class="text-gray-400 mb-6 fade">
 Let’s build reliable infrastructure together.
@@ -214,6 +211,8 @@ Let’s build reliable infrastructure together.
 </section>
 
 <script>
+lucide.createIcons()
+
 const obs = new IntersectionObserver(entries=>{
 entries.forEach(e=>{
 if(e.isIntersecting){
