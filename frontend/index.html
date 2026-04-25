@@ -137,6 +137,11 @@ section {
   transition: opacity 0.8s ease;
 }
 
+#boot-progress.show {
+  opacity:1;
+  transition: opacity 0.5s ease;
+}
+
 </style>
 </head>
 
@@ -151,6 +156,10 @@ section {
 
 <div id="boot-logo" class="text-cyan-400 text-xl font-bold opacity-0 transition duration-700">
 FAQIH SYSTEM
+</div>
+
+<div id="boot-progress" class="w-64 h-2 bg-gray-800 rounded overflow-hidden opacity-0">
+  <div id="boot-bar" class="h-full bg-cyan-400 w-0 transition-all duration-200"></div>
 </div>
 
 <button onclick="skipBoot()" class="text-xs text-gray-500 hover:text-white">
@@ -567,21 +576,31 @@ let lines=[
 "System Ready 🚀"
 ]
 
-let li=0,ci=0,el=document.getElementById("boot-text")
+let li=0,ci=0
+let el=document.getElementById("boot-text")
+
+function randomDelay(min,max){
+  return Math.floor(Math.random()*(max-min)+min)
+}
 
 function boot(){
 
-if(li<lines.length){
+if(li < lines.length){
 
-if(ci<lines[li].length){
-el.innerHTML+=lines[li][ci++]
-setTimeout(boot,15)
+if(ci < lines[li].length){
+
+el.innerHTML += lines[li][ci++]
+
+setTimeout(boot, randomDelay(10,40)) // 🔥 random typing
 
 }else{
-el.innerHTML+="\n"
+
+el.innerHTML += "\n"
 li++
 ci=0
-setTimeout(boot,150)
+
+setTimeout(boot, randomDelay(80,200))
+
 }
 
 }else{
@@ -590,14 +609,41 @@ setTimeout(boot,150)
 document.getElementById("boot-logo").classList.remove("opacity-0")
 
 setTimeout(()=>{
-fadeOutBoot()
-},1000)
+startProgress()
+},800)
 
 }
 
 }
 
 boot()
+
+function startProgress(){
+
+const progress=document.getElementById("boot-progress")
+const bar=document.getElementById("boot-bar")
+
+progress.classList.add("show")
+
+let width=0
+
+let interval=setInterval(()=>{
+
+width += Math.random()*15
+if(width >= 100){
+  width = 100
+  clearInterval(interval)
+
+  setTimeout(()=>{
+    fadeOutBoot()
+  },500)
+}
+
+bar.style.width = width + "%"
+
+},200)
+
+}
 
 /* TYPING */
 let text="M Faqih Fitrokhudin S"
