@@ -86,6 +86,34 @@ body::before {
   align-items:center;
   justify-content:center;
 }
+
+/* DASHBOARD ENTERPRISE */
+.panel {
+  background: linear-gradient(180deg,#111827,#0B0F17);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:12px;
+  padding:16px;
+}
+
+/* STATUS DOT */
+.dot {
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  display:inline-block;
+}
+
+/* ALERT */
+.blink {
+  animation: blinkAlert 1s infinite;
+}
+@keyframes blinkAlert {
+  50% { opacity:0.2; }
+}
+
+.critical { color:#ef4444 }
+.warning { color:#f59e0b }
+.normal { color:#22c55e }
 </style>
 </head>
 
@@ -316,6 +344,59 @@ class="w-72 md:w-96 rounded-2xl border border-gray-700 shadow-xl">
 </div>
 </section>
 
+<section id="infra" class="py-20">
+<h2 class="text-lg font-semibold mb-6">Infrastructure Dashboard</h2>
+
+<div class="grid md:grid-cols-3 gap-6">
+
+<!-- VM -->
+<div class="panel">
+<div class="flex justify-between mb-2">
+<span class="text-gray-400 text-sm">VM Status</span>
+<span class="text-xs text-gray-500">Live</span>
+</div>
+
+<h3 class="text-xl text-cyan-400 mb-4" id="vmCount">7000 Running</h3>
+
+<div class="space-y-2 text-sm">
+<div class="flex justify-between">
+<span><span class="dot bg-green-400"></span> Running</span>
+<span id="vmRunning">6900</span>
+</div>
+<div class="flex justify-between">
+<span><span class="dot bg-yellow-400"></span> Warning</span>
+<span id="vmWarn">50</span>
+</div>
+<div class="flex justify-between">
+<span><span class="dot bg-red-400"></span> Down</span>
+<span id="vmDown">10</span>
+</div>
+</div>
+</div>
+
+<!-- HOST -->
+<div class="panel">
+<div class="flex justify-between mb-2">
+<span class="text-gray-400 text-sm">Host Cluster</span>
+<span class="text-xs text-gray-500">Realtime</span>
+</div>
+
+<div id="hostList" class="space-y-2 text-sm"></div>
+</div>
+
+<!-- INCIDENT -->
+<div class="panel">
+<div class="flex justify-between mb-2">
+<span class="text-gray-400 text-sm">Incident</span>
+<span class="text-xs text-gray-500">Auto Detect</span>
+</div>
+
+<div id="incidentBox" class="text-sm"></div>
+</div>
+
+</div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact" class="py-20 text-center">
 <h2 class="text-lg font-semibold mb-6">Contact</h2>
@@ -467,6 +548,101 @@ window.addEventListener("scroll",()=>{
 let h=document.body.scrollHeight-window.innerHeight
 document.getElementById("progress").style.width=(scrollY/h*100)+"%"
 })
+
+/* HOST SIMULATION */
+const hostList = document.getElementById("hostList")
+
+function generateHosts(){
+hostList.innerHTML=""
+
+for(let i=1;i<=6;i++){
+
+let rand=Math.random()
+let color="text-green-400"
+let dot="bg-green-400"
+let label="Healthy"
+
+if(rand>0.8){
+color="text-yellow-400"
+dot="bg-yellow-400"
+label="Warning"
+}
+if(rand>0.92){
+color="text-red-400"
+dot="bg-red-400"
+label="Down"
+}
+
+hostList.innerHTML += `
+<div class="flex justify-between items-center">
+<span>Host-${i}</span>
+<span class="${color}">
+<span class="dot ${dot} mr-1"></span>${label}
+</span>
+</div>
+`
+}
+}
+
+setInterval(generateHosts,3000)
+generateHosts()
+
+
+/* INCIDENT SYSTEM */
+const incidentBox=document.getElementById("incidentBox")
+
+const incidents=[
+{msg:"High CPU on critical VM",level:"critical"},
+{msg:"Host failure detected",level:"critical"},
+{msg:"Network latency spike",level:"warning"},
+{msg:"Storage I/O degradation",level:"warning"}
+]
+
+function triggerIncident(){
+
+let chance=Math.random()
+
+if(chance>0.7){
+
+let inc=incidents[Math.floor(Math.random()*incidents.length)]
+
+incidentBox.innerHTML=`
+<div class="${inc.level} blink font-semibold mb-1">
+⚠ ${inc.level.toUpperCase()}
+</div>
+<div class="text-gray-300">${inc.msg}</div>
+<div class="text-xs text-gray-500 mt-2">Auto recovery running...</div>
+`
+
+setTimeout(()=>{
+incidentBox.innerHTML=`
+<div class="normal font-semibold">✔ RESOLVED</div>
+<div class="text-xs text-gray-500">System stabilized</div>
+`
+},4000)
+
+}else{
+incidentBox.innerHTML=`<span class="text-gray-500">No active incident</span>`
+}
+
+}
+
+setInterval(triggerIncident,5000)
+triggerIncident()
+
+
+/* VM DYNAMIC */
+setInterval(()=>{
+let running=6800+Math.floor(Math.random()*200)
+let warn=Math.floor(Math.random()*80)
+let down=Math.floor(Math.random()*20)
+
+document.getElementById("vmRunning").innerText=running
+document.getElementById("vmWarn").innerText=warn
+document.getElementById("vmDown").innerText=down
+document.getElementById("vmCount").innerText=running+" Running"
+
+},3000)
 
 </script>
 
