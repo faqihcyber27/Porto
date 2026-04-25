@@ -45,6 +45,7 @@ body::before {
 .card:hover {
   border-color: #00C2FF;
   transform: translateY(-4px);
+  box-shadow: 0 0 20px rgba(0,194,255,0.2);
 }
 
 /* MOBILE MENU */
@@ -313,6 +314,9 @@ class="w-72 md:w-96 rounded-2xl border border-gray-700 shadow-xl">
 <span class="card px-4 py-2 text-sm">Aria Ops</span>
 <span class="card px-4 py-2 text-sm">ESX</span>
 <span class="card px-4 py-2 text-sm">KVM</span>
+<span class="card px-4 py-2 text-sm">Banking Infrastructure</span>
+<span class="card px-4 py-2 text-sm">Disaster Recovery</span>
+<span class="card px-4 py-2 text-sm">High Availability</span>
 
 </div>
 </section>
@@ -392,8 +396,20 @@ class="w-72 md:w-96 rounded-2xl border border-gray-700 shadow-xl">
 </div>
 
 <div id="incidentBox" class="text-sm"></div>
+<button onclick="simulateFailover()" 
+class="mt-4 text-xs bg-red-500 px-3 py-1 rounded">
+Simulate Failover
+</button>
 </div>
 
+</div>
+</section>
+
+<section class="py-20">
+<h2 class="text-lg font-semibold mb-6">System Log</h2>
+
+<div id="logBox" class="card p-6 max-h-[300px] overflow-y-auto text-sm">
+<span class="text-gray-500">Waiting log...</span>
 </div>
 </section>
 
@@ -524,6 +540,13 @@ mem=Math.floor(mem)
 cpuVal.innerText=cpu+"%"
 memVal.innerText=mem+"%"
 
+// ALERT CPU
+if(cpu > 85){
+  document.getElementById("cpuVal").classList.add("blink","text-red-400")
+}else{
+  document.getElementById("cpuVal").classList.remove("blink","text-red-400")
+}
+
 cpuChart.data.datasets[0].data.push(cpu)
 cpuChart.data.datasets[0].data.shift()
 memChart.data.datasets[0].data.push(mem)
@@ -643,6 +666,58 @@ document.getElementById("vmDown").innerText=down
 document.getElementById("vmCount").innerText=running+" Running"
 
 },3000)
+
+const logBox=document.getElementById("logBox")
+
+const logs=[
+"[INFO] VM deployed",
+"[WARN] CPU spike detected",
+"[CRITICAL] Host unreachable",
+"[INFO] Failover initiated",
+"[INFO] Service recovered",
+"[WARN] Memory threshold"
+]
+
+function pushLog(){
+
+let time=new Date().toLocaleTimeString()
+let log=logs[Math.floor(Math.random()*logs.length)]
+
+let color="text-gray-400"
+if(log.includes("CRITICAL")) color="text-red-400"
+if(log.includes("WARN")) color="text-yellow-400"
+if(log.includes("INFO")) color="text-green-400"
+
+logBox.innerHTML=`
+<div class="${color}">[${time}] ${log}</div>
+` + logBox.innerHTML
+
+}
+
+setInterval(pushLog,1500)
+
+function simulateFailover(){
+
+incidentBox.innerHTML=`
+<div class="critical blink font-semibold">⚠ CRITICAL</div>
+<div>Primary DC failure</div>
+<div class="text-xs text-gray-500">Switching to DR...</div>
+`
+
+setTimeout(()=>{
+incidentBox.innerHTML=`
+<div class="warning font-semibold">⏳ FAILOVER IN PROGRESS</div>
+`
+},2000)
+
+setTimeout(()=>{
+incidentBox.innerHTML=`
+<div class="normal font-semibold">✔ DR ACTIVE</div>
+<div class="text-xs text-gray-500">Service restored</div>
+`
+},4000)
+
+}
 
 </script>
 
