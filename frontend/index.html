@@ -22,6 +22,7 @@ body::before {
   content:"";
   position:fixed;
   inset:0;
+  pointer-events: none;
   background-image:
     linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
@@ -115,6 +116,12 @@ body::before {
 .critical { color:#ef4444 }
 .warning { color:#f59e0b }
 .normal { color:#22c55e }
+
+section {
+  position: relative;
+  z-index: 1;
+}
+
 </style>
 </head>
 
