@@ -122,6 +122,16 @@ section {
   z-index: 1;
 }
 
+.alert-glow {
+  box-shadow: 0 0 20px rgba(239,68,68,0.5);
+  border:1px solid rgba(239,68,68,0.6);
+}
+
+.card a {
+  position: relative;
+  z-index: 10;
+}
+
 </style>
 </head>
 
@@ -180,6 +190,11 @@ section {
 <p class="text-gray-400 mb-6">
 Managing 7000+ VM & 400+ host across enterprise infrastructure.
 </p>
+
+<div class="mt-6 text-center">
+<p class="text-xs text-gray-500">Service Availability</p>
+<p id="slaVal" class="text-cyan-400 font-bold text-xl">99.99%</p>
+</div>
 
 <div class="grid grid-cols-3 gap-6 text-center mt-8">
 
@@ -413,6 +428,57 @@ Simulate Failover
 </section>
 
 <section class="py-20">
+<h2 class="text-lg font-semibold mb-6">Topology Map</h2>
+
+<div class="panel">
+
+<div class="flex flex-col items-center gap-8 text-sm">
+
+<!-- DC -->
+<div class="text-cyan-400 font-semibold text-lg">DC-PRIMARY</div>
+
+<!-- CLUSTER -->
+<div class="flex gap-10">
+  <div class="text-yellow-400">Cluster-A</div>
+  <div class="text-yellow-400">Cluster-B</div>
+</div>
+
+<!-- HOST -->
+<div class="flex gap-16">
+  <div class="flex flex-col items-center gap-2">
+    <span>Host-1</span>
+
+    <!-- VM -->
+    <div class="flex gap-2 text-xs">
+      <span class="px-2 py-1 bg-red-500/20 text-red-400 rounded border border-red-500/40">
+        VM-DB 🔥
+      </span>
+      
+    </div>
+  </div>
+
+  <div class="flex flex-col items-center gap-2">
+    <span>Host-2</span>
+
+    <div class="flex gap-2 text-xs">
+      <span class="px-2 py-1 bg-green-500/20 text-green-400 rounded">
+        VM-APP
+      </span>
+      <span class="px-2 py-1 bg-green-500/20 text-green-400 rounded">
+        VM-WEB
+      </span>
+    </div>
+  </div>
+
+  </div>
+</div>
+
+</div>
+
+</div>
+</section>
+
+<section class="py-20">
 <h2 class="text-lg font-semibold mb-6">System Log</h2>
 
 <div id="logBox" class="card p-6 max-h-[300px] overflow-y-auto text-sm">
@@ -458,6 +524,8 @@ class="card p-4 flex items-center justify-center hover:scale-110 transition">
 <footer class="text-center py-10 text-gray-500 text-sm border-t border-gray-800">
 © 2026 Faqih. All rights reserved.
 </footer>
+
+<audio id="alertSound" src="https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3"></audio>
 
 <script>
 
@@ -549,9 +617,10 @@ memVal.innerText=mem+"%"
 
 // ALERT CPU
 if(cpu > 85){
-  document.getElementById("cpuVal").classList.add("blink","text-red-400")
+  cpuVal.classList.add("blink","text-red-400")
+  document.getElementById("alertSound").play()
 }else{
-  document.getElementById("cpuVal").classList.remove("blink","text-red-400")
+  cpuVal.classList.remove("blink","text-red-400")
 }
 
 cpuChart.data.datasets[0].data.push(cpu)
@@ -633,6 +702,13 @@ function triggerIncident(){
 let chance=Math.random()
 
 if(chance>0.7){
+  
+  if(inc.level === "critical"){
+  incidentBox.classList.add("alert-glow")
+  document.getElementById("alertSound").play()
+}else{
+  incidentBox.classList.remove("alert-glow")
+}
 
 let inc=incidents[Math.floor(Math.random()*incidents.length)]
 
@@ -660,6 +736,19 @@ incidentBox.innerHTML=`<span class="text-gray-500">No active incident</span>`
 setInterval(triggerIncident,5000)
 triggerIncident()
 
+function animateValue(id, start, end, duration) {
+  let range = end - start
+  let stepTime = Math.abs(Math.floor(duration / range))
+  let current = start
+  let increment = end > start ? 1 : -1
+  let obj = document.getElementById(id)
+
+  let timer = setInterval(() => {
+    current += increment
+    obj.innerText = current
+    if (current == end) clearInterval(timer)
+  }, stepTime)
+}
 
 /* VM DYNAMIC */
 setInterval(()=>{
@@ -667,7 +756,7 @@ let running=6800+Math.floor(Math.random()*200)
 let warn=Math.floor(Math.random()*80)
 let down=Math.floor(Math.random()*20)
 
-document.getElementById("vmRunning").innerText=running
+animateValue("vmRunning", 6800, running, 500)
 document.getElementById("vmWarn").innerText=warn
 document.getElementById("vmDown").innerText=down
 document.getElementById("vmCount").innerText=running+" Running"
@@ -725,6 +814,11 @@ incidentBox.innerHTML=`
 },4000)
 
 }
+
+setInterval(()=>{
+  let sla = (99.90 + Math.random()*0.09).toFixed(2)
+  document.getElementById("slaVal").innerText = sla + "%"
+},4000)
 
 </script>
 
