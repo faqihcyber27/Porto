@@ -220,6 +220,11 @@ Managing 7000+ VM & 400+ host across enterprise infrastructure.
 <p id="slaVal" class="text-cyan-400 font-bold text-xl">99.99%</p>
 </div>
 
+<div class="mt-4 text-center">
+<p class="text-xs text-gray-500">System Mode</p>
+<p id="modeVal" class="text-green-400 font-bold">PRODUCTION</p>
+</div>
+
 <div class="grid grid-cols-3 gap-6 text-center mt-8">
 
 <div>
@@ -474,7 +479,7 @@ Simulate Failover
 
     <!-- VM -->
     <div class="flex gap-2 text-xs">
-      <span class="px-2 py-1 bg-green-500/20 text-green-400 rounded border border-red-500/40">
+      <span id="vmDB" class="px-2 py-1 bg-green-500/20 text-green-400 rounded border border-red-500/40">
         VM-DB
       </span>
       
@@ -507,6 +512,14 @@ Simulate Failover
 
 <div id="logBox" class="card p-6 max-h-[300px] overflow-y-auto text-sm">
 <span class="text-gray-500">Waiting log...</span>
+</div>
+</section>
+
+<section class="py-20">
+<h2 class="text-lg font-semibold mb-6">Terminal</h2>
+
+<div id="terminal" class="card p-6 font-mono text-sm h-[250px] overflow-y-auto bg-black text-green-400">
+<span>$ initializing...</span>
 </div>
 </section>
 
@@ -555,6 +568,29 @@ class="card p-4 flex items-center justify-center hover:scale-110 transition">
 
 /* ICON */
 lucide.createIcons()
+
+/* ================= SYSTEM ENGINE ================= */
+
+const systemState = {
+  mode: "production",
+  incidentActive: false,
+  migrating: false,
+  lastAlert: 0
+}
+
+function setMode(mode){
+  const el = document.getElementById("modeVal")
+
+  if(mode === "incident"){
+    el.innerText = "INCIDENT"
+    el.className = "text-red-400 font-bold blink"
+  }else{
+    el.innerText = "PRODUCTION"
+    el.className = "text-green-400 font-bold"
+  }
+
+  systemState.mode = mode
+}
 
 /* MOBILE MENU */
 function toggleMenu(){
@@ -703,13 +739,6 @@ cpuVal.innerText=cpu+"%"
 memVal.innerText=mem+"%"
 
 // ALERT CPU
-if(cpu > 85){
-  cpuVal.classList.add("blink","text-red-400")
-  document.getElementById("alertSound").play()
-}else{
-  cpuVal.classList.remove("blink","text-red-400")
-}
-
 cpuChart.data.datasets[0].data.push(cpu)
 cpuChart.data.datasets[0].data.shift()
 memChart.data.datasets[0].data.push(mem)
@@ -786,36 +815,85 @@ const incidents=[
 
 function triggerIncident(){
 
-let chance=Math.random()
+// ❌ jangan jalan kalau lagi failover / migrating
+if(systemState.incidentActive || systemState.migrating) return
 
-if(chance>0.7){
-  
-  if(inc.level === "critical"){
-  incidentBox.classList.add("alert-glow")
-  document.getElementById("alertSound").play()
-}else{
-  incidentBox.classList.remove("alert-glow")
-}
+// 🎯 threshold incident
+const INCIDENT_CPU_THRESHOLD = 85
 
-let inc=incidents[Math.floor(Math.random()*incidents.length)]
+// ⏱ cooldown alert (biar ga spam)
+const ALERT_COOLDOWN = 5000
 
-incidentBox.innerHTML=`
-<div class="${inc.level} blink font-semibold mb-1">
-⚠ ${inc.level.toUpperCase()}
+let now = Date.now()
+
+// ❌ kalau masih cooldown, skip
+if(now - systemState.lastAlert < ALERT_COOLDOWN) return
+
+
+// =========================
+// 🚨 TRIGGER INCIDENT
+// =========================
+if(cpu >= INCIDENT_CPU_THRESHOLD){
+
+systemState.lastAlert = now
+systemState.incidentActive = true
+
+// ubah mode UI
+setMode("incident")
+
+// 🔊 HANDLE SOUND (anti overlap)
+let sound = document.getElementById("alertSound")
+sound.pause()
+sound.currentTime = 0
+sound.play()
+
+// 🔥 UI INCIDENT
+incidentBox.classList.add("alert-glow")
+
+incidentBox.innerHTML = `
+<div class="critical blink font-semibold mb-1">
+⚠ CRITICAL
 </div>
-<div class="text-gray-300">${inc.msg}</div>
-<div class="text-xs text-gray-500 mt-2">Auto recovery running...</div>
+<div class="text-gray-300">
+High CPU Usage Detected (${cpu}%)
+</div>
+<div class="text-xs text-gray-500 mt-2">
+Auto recovery running...
+</div>
 `
 
+// 📟 terminal log
+logTerminal("> ALERT: CPU HIGH " + cpu + "%", "error")
+
+
+// =========================
+// 🔄 AUTO RECOVERY
+// =========================
 setTimeout(()=>{
-incidentBox.innerHTML=`
+
+incidentBox.innerHTML = `
 <div class="normal font-semibold">✔ RESOLVED</div>
 <div class="text-xs text-gray-500">System stabilized</div>
 `
-},4000)
+
+incidentBox.classList.remove("alert-glow")
+
+systemState.incidentActive = false
+
+// balik ke normal
+setMode("production")
+
+logTerminal("> INCIDENT RESOLVED")
+
+},5000)
 
 }else{
-incidentBox.innerHTML=`<span class="text-gray-500">No active incident</span>`
+
+// 🟢 NORMAL STATE
+incidentBox.innerHTML = `
+<span class="text-gray-500">No active incident</span>
+`
+
 }
 
 }
@@ -880,25 +958,81 @@ logBox.innerHTML=`
 setInterval(pushLog,1500)
 
 function simulateFailover(){
+  
+if(systemState.incidentActive) return
+
+systemState.incidentActive = true
+systemState.migrating = true
+setMode("incident")
+
+logTerminal("> CRITICAL: DC FAILURE", "error")
+logTerminal("> initiating failover...")
+
+const incidentBox = document.getElementById("incidentBox")
+const sound = document.getElementById("alertSound")
+
+// STEP 1 - DETECT FAILURE
+incidentBox.classList.add("alert-glow")
 
 incidentBox.innerHTML=`
 <div class="critical blink font-semibold">⚠ CRITICAL</div>
-<div>Primary DC failure</div>
-<div class="text-xs text-gray-500">Switching to DR...</div>
+<div>Primary DC failure detected</div>
+<div class="text-xs text-gray-500">Analyzing impact...</div>
 `
 
+sound.play()
+
+setTimeout(()=>{
+document.getElementById("slaVal").innerText = "99.20%"
+},3000)
+
+setTimeout(()=>{
+document.getElementById("slaVal").innerText = "99.99%"
+},9000)
+
+// STEP 2 - ISOLATION
 setTimeout(()=>{
 incidentBox.innerHTML=`
-<div class="warning font-semibold">⏳ FAILOVER IN PROGRESS</div>
+<div class="warning font-semibold">⏳ ISOLATING FAILURE</div>
+<div class="text-xs text-gray-400">Stopping affected nodes...</div>
 `
 },2000)
 
+// STEP 3 - FAILOVER START
+setTimeout(()=>{
+incidentBox.innerHTML=`
+<div class="warning blink font-semibold">⏳ FAILOVER INITIATED</div>
+<div class="text-xs text-gray-400">Switching to DR site...</div>
+`
+
+// 🔥 MIGRATE VM
+migrateVM()
+
+},4000)
+
+// STEP 4 - SYNC DATA
+setTimeout(()=>{
+incidentBox.innerHTML=`
+<div class="warning font-semibold">⏳ DATA SYNCHRONIZATION</div>
+<div class="text-xs text-gray-400">Replicating storage & memory state...</div>
+`
+},6000)
+
+// STEP 5 - SERVICE RESTORE
 setTimeout(()=>{
 incidentBox.innerHTML=`
 <div class="normal font-semibold">✔ DR ACTIVE</div>
-<div class="text-xs text-gray-500">Service restored</div>
+<div class="text-xs text-gray-400">All services restored</div>
 `
-},4000)
+
+incidentBox.classList.remove("alert-glow")
+systemState.incidentActive = false
+systemState.migrating = false  // 🔥 WAJIB
+setMode("production")
+
+logTerminal("> SYSTEM STABLE")
+
+},9000)
 
 }
 
@@ -919,6 +1053,110 @@ boot.style.display="none"
 function skipBoot(){
 fadeOutBoot()
 }
+
+const terminal = document.getElementById("terminal")
+
+const commands = [
+"> connect cluster",
+"> check vm status",
+"> vm-db health: OK",
+"> host-2 latency: NORMAL",
+"> running automation script...",
+"> failover simulation ready"
+]
+
+function pushCommand(){
+
+let logs = [
+"> monitoring cpu: " + cpu + "%",
+"> monitoring memory: " + mem + "%",
+"> vm running: " + document.getElementById("vmRunning").innerText,
+"> system mode: " + systemState.mode
+]
+
+let cmd = logs[Math.floor(Math.random()*logs.length)]
+
+logTerminal(cmd)
+
+}
+
+setInterval(pushCommand, 2000)
+
+function updateMode(){
+
+let chance = Math.random()
+
+let modeEl = document.getElementById("modeVal")
+
+if(chance > 0.8){
+modeEl.innerText = "INCIDENT"
+modeEl.className = "text-red-400 font-bold blink"
+}else{
+modeEl.innerText = "PRODUCTION"
+modeEl.className = "text-green-400 font-bold"
+}
+
+}
+
+function migrateVM(){
+
+let vm = document.getElementById("vmDB")
+
+vm.innerText = "Migrating..."
+vm.classList.remove("bg-green-500/20","text-green-400")
+vm.classList.add("bg-yellow-500/20","text-yellow-400","blink")
+
+logTerminal("> migrating VM-DB", "warn")
+
+let host1 = document.querySelectorAll(".flex.flex-col.items-center")[0]
+let host2 = document.querySelectorAll(".flex.flex-col.items-center")[1]
+
+let target = Math.random() > 0.5 ? host2 : host1
+
+setTimeout(()=>{
+target.querySelector("div").appendChild(vm)
+},1200)
+
+setTimeout(()=>{
+vm.innerText = "VM-DB"
+vm.classList.remove("bg-yellow-500/20","text-yellow-400","blink")
+vm.classList.add("bg-green-500/20","text-green-400")
+
+logTerminal("> migration complete")
+
+},2500)
+
+}
+
+function logTerminal(text, type="info"){
+
+let color="text-green-400"
+if(type==="warn") color="text-yellow-400"
+if(type==="error") color="text-red-400"
+
+terminal.innerHTML += `<div class="${color}">${text}</div>`
+terminal.scrollTop = terminal.scrollHeight
+
+}
+
+/* ================= AUTO FAILOVER ENGINE ================= */
+
+setInterval(()=>{
+
+if(systemState.incidentActive) return
+
+let now = Date.now()
+
+if(cpu > 92 && now - systemState.lastAlert > 10000){
+
+systemState.lastAlert = now
+
+logTerminal("> AUTO FAILOVER TRIGGER", "error")
+simulateFailover()
+
+}
+
+},4000)
 
 </script>
 
