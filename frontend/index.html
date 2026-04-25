@@ -132,6 +132,11 @@ section {
   z-index: 10;
 }
 
+.fade-out {
+  opacity:0;
+  transition: opacity 0.8s ease;
+}
+
 </style>
 </head>
 
@@ -140,8 +145,18 @@ section {
 <div id="progress"></div>
 
 <!-- BOOT -->
-<div id="boot-screen">
+<div id="boot-screen" class="flex flex-col gap-4">
+
 <pre id="boot-text" class="text-green-400 font-mono text-sm"></pre>
+
+<div id="boot-logo" class="text-cyan-400 text-xl font-bold opacity-0 transition duration-700">
+FAQIH SYSTEM
+</div>
+
+<button onclick="skipBoot()" class="text-xs text-gray-500 hover:text-white">
+Skip >>
+</button>
+
 </div>
 
 <!-- NAVBAR -->
@@ -450,8 +465,8 @@ Simulate Failover
 
     <!-- VM -->
     <div class="flex gap-2 text-xs">
-      <span class="px-2 py-1 bg-red-500/20 text-red-400 rounded border border-red-500/40">
-        VM-DB 🔥
+      <span class="px-2 py-1 bg-green-500/20 text-green-400 rounded border border-red-500/40">
+        VM-DB
       </span>
       
     </div>
@@ -543,19 +558,45 @@ document.getElementById("mobileMenu").classList.add("hidden")
 }
 
 /* BOOT */
-let lines=["Init system...","Loading infra...","Checking VM...","System Ready 🚀"]
+let lines=[
+"[ OK ] Initializing system...",
+"[ OK ] Connecting to cluster...",
+"[ OK ] Checking VM status...",
+"[ OK ] Loading monitoring module...",
+"[ OK ] Starting automation engine...",
+"System Ready 🚀"
+]
+
 let li=0,ci=0,el=document.getElementById("boot-text")
+
 function boot(){
+
 if(li<lines.length){
+
 if(ci<lines[li].length){
 el.innerHTML+=lines[li][ci++]
-setTimeout(boot,20)
+setTimeout(boot,15)
+
 }else{
-el.innerHTML+="\n";li++;ci=0;setTimeout(boot,200)
+el.innerHTML+="\n"
+li++
+ci=0
+setTimeout(boot,150)
 }
+
 }else{
-setTimeout(()=>{document.getElementById("boot-screen").style.display="none"},800)
-}}
+
+// tampilkan logo
+document.getElementById("boot-logo").classList.remove("opacity-0")
+
+setTimeout(()=>{
+fadeOutBoot()
+},1000)
+
+}
+
+}
+
 boot()
 
 /* TYPING */
@@ -819,6 +860,19 @@ setInterval(()=>{
   let sla = (99.90 + Math.random()*0.09).toFixed(2)
   document.getElementById("slaVal").innerText = sla + "%"
 },4000)
+
+function fadeOutBoot(){
+const boot=document.getElementById("boot-screen")
+boot.classList.add("fade-out")
+
+setTimeout(()=>{
+boot.style.display="none"
+},800)
+}
+
+function skipBoot(){
+fadeOutBoot()
+}
 
 </script>
 
